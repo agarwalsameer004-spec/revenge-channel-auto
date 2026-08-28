@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "The Silent Sale",
+    "keywords": ["office night", "city skyline", "handshake business", "empty boardroom"],
+    "description": "A founder discovers his partner secretly sold the company from under him — and the one clause nobody remembered.",
+    "used": false,
+    "script": "For six years, I built this company with my own hands. My partner, Rohan, handled the paperwork, I handled everything else. I trusted him with the one thing I never should have: the exit clause. I found out on a Tuesday. A courier delivered a letter addressed to the new owners. I read it twice before it made sense. Rohan had sold his shares, and mine, through a power of attorney I signed years ago just for tax filings, to a competitor. For four times what the company was actually worth. He'd been planning it for eight months. I confronted him. He didn't deny it. He said, you were never going to sell, someone had to make the decision. I spent three weeks in a fog. Then I remembered something Rohan never knew I had, a side agreement, notarized, that gave me first right of refusal on any sale above book value. His lawyers had missed it. Mine hadn't. I didn't sue for the money. I sued for the company. Six months later, the court voided the sale. I bought Rohan out at book value, the exact number he'd tried to sell me out for. He called once, after. I didn't pick up. Some partnerships end with a handshake. Some end with a paper trail you kept without knowing why."
+  },
+  {
+    "id": 2,
+    "title": "The Best Man's Speech",
+    "keywords": ["wedding reception", "dinner table candles", "phone screen", "couple silhouette"],
+    "description": "A best man learns the truth about the bride two weeks before the wedding — and has to decide what to do with it.",
+    "used": false,
+    "script": "I was the best man at my brother's wedding. I'd known for two weeks that his fiancee was still messaging her ex, the same ex she swore was completely in the past. I had the screenshots. I didn't know what to do with them. I decided at the rehearsal dinner, I wouldn't say anything, it wasn't my place, my brother deserved to make his own choice, even a wrong one. Then, during my speech, her phone lit up on the table. My brother saw it before she could grab it. He didn't say a word. He just picked it up, read the screen, and set it back down. He finished the toast. He smiled through the first dance. Nobody but the two of us knew what had actually happened that night. Three days later, he filed for annulment. He never asked me if I knew. I never told him I did. Some things you carry so the people you love don't have to carry them with you."
+  },
+  {
+    "id": 3,
+    "title": "The Ledger",
+    "keywords": ["accounting office", "paperwork desk", "calculator numbers", "warehouse business"],
+    "description": "A silent investor finds out where two years of missing profit actually went.",
+    "used": false,
+    "script": "I put in the capital. He ran the operations. That was the deal, clean, simple, on paper. For two years, the numbers looked fine, slow growth, steady margins, nothing dramatic. Then my accountant flagged something, cash deposits that didn't match any invoice. I asked my partner about it. He laughed it off, vendor advances, nothing to worry about. I hired someone outside the business to look closer. It took her eleven days to find it, a shell vendor, a fake invoice trail, and eighteen months of money moving through my company that had nothing to do with my company. I didn't confront him, I documented everything first, every transaction, every date, every discrepancy. Then I walked into his office with a folder, not an accusation. He didn't fight. He knew what the folder meant before I opened it. Two weeks later, I owned one hundred percent of the business, and he was gone, quietly, the way people leave when the alternative is much louder. I still run the ledger myself now. Some lessons you only need to learn once."
+  },
+  {
+    "id": 4,
+    "title": "The Forged Signature",
+    "keywords": ["hand signing document", "office desk paperwork", "bank building", "briefcase"],
+    "description": "A trusted employee forges one signature too many, and one loyal accountant is the only one who checks.",
+    "used": false,
+    "script": "Priya had worked for my father for eleven years. Everyone called her family. When he got sick, she took over the day-to-day signing, invoices, payroll, small transfers. Nobody double-checked her, because why would you check family. After he passed, I found a folder in his desk drawer, bank statements he'd printed himself and never mentioned to anyone. Three transfers a year, always under the audit threshold, always to the same shell account. Eleven years of small amounts add up to a number that isn't small at all. I didn't say anything for two months. I hired a forensic accountant instead, quietly, and let Priya keep working like nothing had changed. When the report came back, it wasn't a guess anymore, it was a signature-by-signature timeline. I called a meeting, laid the folder on the table, and asked her to explain one transfer, just one. She couldn't. The rest explained themselves. She paid back what she could and resigned before I asked her to. I kept my father's old habit after that, printing my own statements, checking them myself, trusting people with the work but never with the only copy of the truth."
+  },
+  {
+    "id": 5,
+    "title": "The Anniversary Gift",
+    "keywords": ["jewelry store", "gift box", "restaurant date night", "receipt paper"],
+    "description": "A wife opens her anniversary gift and finds a receipt that wasn't meant for her.",
+    "used": false,
+    "script": "My husband gave me a bracelet for our tenth anniversary, and folded inside the box, by accident, was the receipt. Two bracelets, same design, bought the same day. I said thank you, wore it to dinner, and said nothing else. For three weeks I watched. I noticed the gym bag he never used to bring home empty. I noticed the phone he started charging in the kitchen instead of the bedroom. I didn't need proof anymore, I needed a plan. I met with a lawyer before I met with him. I moved half our savings into an account only I controlled, legally, quietly. Then I asked him one evening, over the dishes, who got the other bracelet. He didn't lie well. He never does. I didn't scream. I told him I'd already spoken to a lawyer and the accounts were already split. He'd spent three weeks thinking he was the one holding the secret. He never found out I'd spent those same three weeks holding the actual power."
+  },
+  {
+    "id": 6,
+    "title": "The Silent Investor",
+    "keywords": ["startup office", "laptop coding", "stock market chart", "coffee meeting"],
+    "description": "A founder discovers the friend who invested in his startup was secretly betting against it.",
+    "used": false,
+    "script": "Dev put in fifty thousand dollars for ten percent of my startup, back when nobody else believed in it. I called him my first believer for years. What I didn't know was that Dev had also taken a much larger short position against our biggest competitor, using information from our board meetings to time his trades. I found out from a lawyer who wasn't even looking for it, doing due diligence for our next funding round. Dev had been feeding details from our closed-door strategy sessions to a hedge fund contact in exchange for a cut of the trades. My ten percent shareholder was profiting off information that was supposed to protect the company, not sell it. I didn't confront him at the office. I waited for the board meeting where he'd expect to be praised for the funding round closing. Instead I read the trading records into the minutes, in front of everyone who mattered to him. His shares were diluted to nothing in the next round, through terms he'd agreed to himself, back when he thought he'd always be the smartest person in the room."
+  },
+  {
+    "id": 7,
+    "title": "The Locked Drawer",
+    "keywords": ["old house interior", "family photos", "lawyer office desk", "elderly hands"],
+    "description": "A daughter finds her father's real will hidden behind the one her brother presented to the family.",
+    "used": false,
+    "script": "My father died and left everything to my brother, according to the will my brother's lawyer presented three days later. It didn't sound like our father, not the language, not the split, nothing. I said nothing at the reading. I went to the house instead, to the study nobody had touched yet, and I found the drawer he always kept locked, the one he made a joke about being for his secrets. Inside was another will, dated eight months later than the one my brother filed, handwritten, witnessed by our father's oldest friend, who was still very much alive. It split things the way our father always said he would, evenly, fairly, the way he raised us to expect. I didn't tell my brother what I found. I took it straight to a probate attorney and let the legal process do what confrontation never would have. The newer will won, as it should have. My brother asked me once how I knew where to look. I told him our father taught us both to notice when something felt wrong. I just happened to be the one who kept listening."
+  },
+  {
+    "id": 8,
+    "title": "The Reference Letter",
+    "keywords": ["job interview office", "resume documents", "handshake meeting", "city office building"],
+    "description": "A mentor quietly sabotages a former student's dream job, and the truth surfaces years later.",
+    "used": false,
+    "script": "Professor Ahluwalia wrote my recommendation letter for the fellowship I wanted more than anything. I didn't get it. Neither did the next one, or the one after that. Three rejections in a row from programs I was, on paper, perfectly qualified for. I only found out why four years later, from a program director who'd left that world entirely and had nothing left to protect. My professor's letters weren't glowing, they were coded. Talented but difficult, promising but inconsistent, phrases designed to sound like praise to anyone who didn't read between the lines. He'd been doing it for years, to any student he saw as competition for his own shrinking relevance in the field. I didn't confront him. I built a career anyway, slower than it should have been, in a different city, under people who read my actual work instead of his letters. Years later he reached out, asking me to write a recommendation for his own daughter. I said yes. I wrote her the honest letter he never wrote me. Some debts you settle by refusing to become the person who hurt you."
+  },
+  {
+    "id": 9,
+    "title": "The Group Chat",
+    "keywords": ["office cubicles", "phone texting", "coworkers laughing", "meeting room glass"],
+    "description": "An employee is accidentally added to the group chat where her coworkers have been mocking her for months.",
+    "used": false,
+    "script": "Someone added me to the wrong group chat by mistake, the one named after me, where four coworkers had been mocking every presentation, every promotion, every raise I'd earned for the past year. I read eight months of messages in one sitting. I didn't say a word in the chat. I left it quietly and started keeping my own file instead, screenshots, dates, the specific claims they'd made about my work being undeserved, about favors I supposedly traded for my position. When the next round of promotions came up and one of the four tried to block mine in a closed-door meeting, citing vague concerns about my professionalism, I asked, calmly, what specific incidents he meant. He had nothing concrete, because there wasn't anything real to point to. I let HR ask the same question in the follow-up meeting I requested. The vague concerns evaporated under a single direct question, the way most cruelty does when it's asked to explain itself out loud."
+  },
+  {
+    "id": 10,
+    "title": "The Inheritance House",
+    "keywords": ["family house exterior", "moving boxes", "lawyer paperwork", "quiet living room"],
+    "description": "In-laws try to push a widow out of the home her husband left her, unaware of the paperwork he filed years earlier.",
+    "used": false,
+    "script": "Six weeks after my husband's funeral, his parents told me I had ninety days to move out of what they called their son's house. They'd never liked me, and grief made them bold enough to say it out loud. What they didn't know was that my husband, three years earlier, quietly transferred the deed into both our names jointly, with rights of survivorship, specifically because he worried something like this might happen one day. I let them talk for a full ten minutes before I said anything. Then I placed the recorded deed on the table between us. The house had been mine, legally and completely, since the moment he died. I didn't gloat. I offered them his father's old workshop tools and his mother's choice of any photo in the house, because grief makes people say things they don't mean, and I understood that better than most people that year. But I kept the house. He'd made sure of that before he ever got sick, quietly, the way he did everything that mattered."
+  },
+  {
+    "id": 11,
+    "title": "The Ghost Client",
+    "keywords": ["client meeting handshake", "office presentation", "restaurant business lunch", "contract signing"],
+    "description": "A business partner secretly courts the company's biggest client behind closed doors.",
+    "used": false,
+    "script": "Our agency's biggest client paid for forty percent of our revenue, and my partner Sana handled that relationship personally, which made sense, she'd brought them in originally. What I didn't know was that for four months, she'd been meeting them separately, pitching a new agency, her own, using our case studies and our team's work as her portfolio. I found out when the client's assistant emailed me by mistake, cc'ing me on a proposal meant only for Sana. The proposal had our client list, our pricing, our staff bios, rebranded under a name that didn't exist in any registry yet. I didn't warn her I knew. I called the client myself, laid out our partnership agreement's non-compete clause, and let their legal team decide whether they wanted to be part of a deal built on stolen material. They walked away from Sana's pitch within a week, not out of loyalty to me, but because nobody wants to be the first client of a business built on a broken contract. Sana left the agency two months later. I kept the client, and I kept the lesson, that the biggest threats rarely knock before they let themselves in."
+  },
+  {
+    "id": 12,
+    "title": "The Return Policy",
+    "keywords": ["small shop interior", "online store packages", "laptop email", "delivery boxes"],
+    "description": "A small business owner is targeted by a serial scammer, until she finds the one pattern he didn't expect.",
+    "used": false,
+    "script": "My online store had one return in three years before a customer named Victor started ordering our most expensive pieces, claiming they arrived damaged, and demanding refunds while keeping the item. He'd done it four times under four slightly different names, four different addresses, all within the same six-block radius. I almost let the fourth one go too, refunds are cheaper than lawyers. Then I noticed something small, every damage photo he sent used the same bathroom tile in the background. I built a folder, cross-referencing every claim, every photo, every address, and sent it not to Victor, but to the small claims court, along with a formal fraud report. He didn't show up to contest it. Small-time scammers rarely do, once someone shows them the file is bigger than the refund. I got a judgment, though collecting on it is its own slow process. What mattered more was posting the pattern, anonymized, in a small business owners' group. Six other shop owners recognized the same bathroom tile within a day."
+  },
+  {
+    "id": 13,
+    "title": "The Fake Reference",
+    "keywords": ["apartment building exterior", "landlord keys", "lease paperwork", "moving day"],
+    "description": "A landlord blacklists a tenant with false claims, unaware she kept records of everything he never expected her to need.",
+    "used": false,
+    "script": "My landlord told the next building's management company that I'd damaged the unit and skipped rent, neither of which was true, because I'd left on good terms with a full move-out inspection he signed himself. I only found out when the new building rejected my application and, when I pushed, quoted his exact words back to me. I still had the signed inspection form, the final rent receipt, and a string of texts where he thanked me for leaving the place, in his words, spotless. I sent all three documents to the new building's management directly, along with a request that they verify independently rather than take one landlord's phone call as fact. They approved my application within two days. Then I filed a complaint with the local tenant rights board, attaching the same documents, because a false reference isn't just inconvenient, it's actionable when you can prove it in writing. He never explained why he did it. I didn't need him to. I just needed the paper trail I'd kept out of habit, not suspicion, until the day it mattered more than any explanation would have."
+  },
+  {
+    "id": 14,
+    "title": "The Understudy",
+    "keywords": ["startup pitch meeting", "office whiteboard", "investors boardroom", "laptop presentation"],
+    "description": "A co-founder is quietly pushed out of her own company days before its biggest breakthrough.",
+    "used": false,
+    "script": "I co-founded the company, wrote the first version of the product myself, and trained my co-founder Arjun on every technical decision we made. Three days before our biggest investor meeting, the one I'd spent six months preparing, Arjun told me the board, meaning him and one advisor he'd recruited without telling me, decided I should step back from the pitch, that I came across too technical, not enough of a visionary. I found out later he'd been quietly telling investors for weeks that he was the sole founder, positioning me as an early hire instead of a co-founder, ahead of a round that would have diluted my actual equity based on that story. I didn't fight him in the room. I went to our lawyer instead, with the original founding agreement and the git history proving exactly who built what and when. The investor round paused while the cap table got sorted out properly. Arjun's story didn't survive contact with our actual paperwork. I kept my equity, and I kept running the technical side, which turned out to be the side investors actually wanted to talk to once they understood who had really built the thing they were funding."
+  },
+  {
+    "id": 15,
+    "title": "The Quiet Auditor",
+    "keywords": ["family business shop", "cash register", "office intern desk", "accounting books"],
+    "description": "A family business's long-trusted accountant is caught embezzling by the summer intern nobody expected to notice.",
+    "used": false,
+    "script": "Our family hardware store's accountant, Mr. Bhatt, had managed our books for eighteen years, since before I was born. Nobody questioned him, not once, not even when profits stayed flat during years the store was clearly busier than ever. It was my nephew, home from university for the summer, doing data entry as a favor, who noticed the pattern, small recurring payments to a supplier that didn't match any actual delivery in our inventory system. He almost didn't say anything, worried about being wrong about a man three times his age who'd been part of the family for decades. He brought it to me quietly instead of to my father, who still trusted Mr. Bhatt completely. I hired an independent auditor before saying a single word to anyone. It took two weeks to confirm what my nephew had already found in two days, eighteen years of small, careful skimming that added up to a house's worth of money. My father didn't want to press charges, out of loyalty to a friendship he still believed was real. I didn't argue with him about that. I just made sure Mr. Bhatt paid back what could be traced, and that my nephew, not the accountant, got put in charge of the books going forward."
+  }
+]

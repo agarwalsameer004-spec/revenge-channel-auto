@@ -177,11 +177,28 @@ def upload_to_youtube(video_path, thumb_path, title, description):
     from googleapiclient.discovery import build
     from googleapiclient.http import MediaFileUpload
 
+    # .strip() matters: a trailing newline pasted into a GitHub secret makes
+    # Google reject the credentials with a misleading "OAuth client was not found".
+    client_id = os.environ["YT_CLIENT_ID"].strip()
+    client_secret = os.environ["YT_CLIENT_SECRET"].strip()
+    refresh_token = os.environ["YT_REFRESH_TOKEN"].strip()
+
+    # A client ID is public (it appears in OAuth URLs), so logging it is safe and
+    # makes a mismatched secret obvious instead of guessable.
+    print(f"  YT_CLIENT_ID     = {client_id}")
+    print(f"  YT_CLIENT_SECRET = {len(client_secret)} chars, ends '{client_secret[-4:]}'")
+    print(f"  YT_REFRESH_TOKEN = {len(refresh_token)} chars, starts '{refresh_token[:5]}'")
+    if not client_id.endswith(".apps.googleusercontent.com"):
+        raise SystemExit(
+            "YT_CLIENT_ID does not look like a Google client ID "
+            "(it must end in .apps.googleusercontent.com)."
+        )
+
     creds = Credentials(
         None,
-        refresh_token=os.environ["YT_REFRESH_TOKEN"],
-        client_id=os.environ["YT_CLIENT_ID"],
-        client_secret=os.environ["YT_CLIENT_SECRET"],
+        refresh_token=refresh_token,
+        client_id=client_id,
+        client_secret=client_secret,
         token_uri="https://oauth2.googleapis.com/token",
     )
     yt = build("youtube", "v3", credentials=creds)

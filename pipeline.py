@@ -211,7 +211,21 @@ def upload_to_youtube(video_path, thumb_path, title, description):
     )
     response = request.execute()
     video_id = response["id"]
-    yt.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(thumb_path)).execute()
+
+    # A custom thumbnail needs a phone-verified YouTube channel. If it isn't
+    # verified yet the video is still published fine — YouTube just uses an
+    # auto-generated frame. Never let this cosmetic step fail the whole run and
+    # cause the same script to be re-uploaded next time.
+    try:
+        yt.thumbnails().set(
+            videoId=video_id, media_body=MediaFileUpload(thumb_path)
+        ).execute()
+        print("  custom thumbnail set")
+    except Exception as e:
+        print(f"  WARNING: could not set custom thumbnail ({e.__class__.__name__}). "
+              f"Verify the channel at youtube.com/verify to enable this. "
+              f"Video is published regardless.")
+
     return video_id
 
 
@@ -230,8 +244,10 @@ def main():
     assemble_video(clips, audio_path, video_path, duration)
     make_thumbnail(item["title"], thumb_path)
     video_id = upload_to_youtube(video_path, thumb_path, item["title"], item.get("description", ""))
-    print(f"Uploaded: https://youtu.be/{video_id}")
+    # Mark used IMMEDIATELY after a successful upload. If anything later throws,
+    # the script must not be published a second time on the next run.
     mark_used(item, queue)
+    print(f"Uploaded: https://youtu.be/{video_id}")
 
 
 if __name__ == "__main__":

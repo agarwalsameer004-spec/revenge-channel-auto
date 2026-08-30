@@ -100,31 +100,62 @@ def fetch_stock_clips(keywords, n, out_dir):
         if not videos:
             continue
         video = random.choice(videos)
-        best = min(video["video_files"], key=lambda v: abs(v.get("width", 1920) - 1920))
+        # Prefer the largest file at or below 1080p. Decoding 4K source on a
+        # 2-core CI runner is what makes the encode crawl.
+        files = [v for v in video["video_files"] if v.get("width")]
+        hd = [v for v in files if v["width"] <= 1920]
+        best = max(hd, key=lambda v: v["width"]) if hd else min(files, key=lambda v: v["width"])
         path = os.path.join(out_dir, f"clip_{i}.mp4")
         with requests.get(best["link"], stream=True, timeout=120) as resp:
             with open(path, "wb") as f:
                 for chunk in resp.iter_content(chunk_size=8192):
                     f.write(chunk)
+        print(f"  clip {i}: '{kw}' @ {best['width']}x{best.get('height')}")
         paths.append(path)
     return paths
 
 
 def assemble_video(clip_paths, audio_path, out_path, duration):
+    """Concatenate stock clips and lay the narration over them.
+
+    Deliberately does NOT use per-file `duration` directives in the concat list:
+    when a directive exceeds a clip's real length, ffmpeg pads by duplicating
+    frames and can spin indefinitely. Instead the clips are played end to end
+    (looping the list if the footage is shorter than the audio) and the output
+    is hard-capped with -t, which always terminates.
+    """
     if not clip_paths:
         raise SystemExit("No stock clips fetched — check PEXELS_API_KEY / keywords.")
-    per_clip = duration / len(clip_paths)
+
+    # Repeat the playlist enough times that footage always outlasts the narration.
+    total_clip_secs = 0.0
+    for c in clip_paths:
+        try:
+            total_clip_secs += get_audio_duration(c)  # ffprobe works for video too
+        except Exception:
+            total_clip_secs += 5.0  # conservative fallback
+    loops = max(1, int(duration / max(total_clip_secs, 1.0)) + 1)
+
     list_file = os.path.join(OUTPUT_DIR, "concat_list.txt")
     with open(list_file, "w") as f:
-        for c in clip_paths:
-            f.write(f"file '{os.path.abspath(c)}'\nduration {per_clip}\n")
-        f.write(f"file '{os.path.abspath(clip_paths[-1])}'\n")
+        for _ in range(loops):
+            for c in clip_paths:
+                f.write(f"file '{os.path.abspath(c)}'\n")
+
     subprocess.run([
-        "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", list_file,
-        "-i", audio_path, "-map", "0:v", "-map", "1:a",
-        "-vf", "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080",
-        "-c:v", "libx264", "-c:a", "aac", "-shortest", out_path,
-    ], check=True)
+        "ffmpeg", "-y",
+        "-f", "concat", "-safe", "0", "-i", list_file,
+        "-i", audio_path,
+        "-map", "0:v:0", "-map", "1:a:0",
+        "-vf", "scale=1920:1080:force_original_aspect_ratio=increase,"
+               "crop=1920:1080,fps=25",
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+        "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "128k",
+        "-t", f"{duration:.2f}",          # hard stop — cannot run away
+        "-shortest",
+        out_path,
+    ], check=True, timeout=1800)
 
 
 def make_thumbnail(title, out_path):

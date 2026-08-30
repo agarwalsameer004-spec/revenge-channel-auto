@@ -13,7 +13,7 @@ import textwrap
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
-ELEVENLABS_API_KEY = os.environ["ELEVENLABS_API_KEY"]
+ELEVENLABS_API_KEY = os.environ["ELEVENLABS_API_KEY"].strip()
 ELEVENLABS_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID")  # optional override; auto-detected below if unset
 PEXELS_API_KEY = os.environ["PEXELS_API_KEY"]
 
@@ -31,6 +31,8 @@ def resolve_voice_id():
         "https://api.elevenlabs.io/v1/voices",
         headers={"xi-api-key": ELEVENLABS_API_KEY}, timeout=30,
     )
+    if not r.ok:
+        print(f"ElevenLabs /v1/voices error {r.status_code}: {r.text[:2000]}")
     r.raise_for_status()
     voices = r.json().get("voices", [])
     if not voices:

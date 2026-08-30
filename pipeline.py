@@ -14,11 +14,30 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 
 ELEVENLABS_API_KEY = os.environ["ELEVENLABS_API_KEY"]
-ELEVENLABS_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM")
+ELEVENLABS_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID")  # optional override; auto-detected below if unset
 PEXELS_API_KEY = os.environ["PEXELS_API_KEY"]
 
 QUEUE_FILE = "scripts_queue.json"
 OUTPUT_DIR = "output"
+
+
+def resolve_voice_id():
+    """Use ELEVENLABS_VOICE_ID if set; otherwise pick the account's first available voice.
+    Avoids hardcoding a voice ID that may not exist on every ElevenLabs account/plan."""
+    global ELEVENLABS_VOICE_ID
+    if ELEVENLABS_VOICE_ID:
+        return ELEVENLABS_VOICE_ID
+    r = requests.get(
+        "https://api.elevenlabs.io/v1/voices",
+        headers={"xi-api-key": ELEVENLABS_API_KEY}, timeout=30,
+    )
+    r.raise_for_status()
+    voices = r.json().get("voices", [])
+    if not voices:
+        raise SystemExit("ElevenLabs account has no voices available — add one at elevenlabs.io/app/voice-library.")
+    ELEVENLABS_VOICE_ID = voices[0]["voice_id"]
+    print(f"Using ElevenLabs voice: {voices[0].get('name')} ({ELEVENLABS_VOICE_ID})")
+    return ELEVENLABS_VOICE_ID
 
 
 def load_next_script():
@@ -39,7 +58,8 @@ def mark_used(item, queue):
 
 
 def generate_voice(text, out_path):
-    url = f"https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}"
+    voice_id = resolve_voice_id()
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
     headers = {"xi-api-key": ELEVENLABS_API_KEY, "Content-Type": "application/json"}
     payload = {
         "text": text,
@@ -47,6 +67,8 @@ def generate_voice(text, out_path):
         "voice_settings": {"stability": 0.4, "similarity_boost": 0.75},
     }
     r = requests.post(url, json=payload, headers=headers, timeout=120)
+    if not r.ok:
+        print(f"ElevenLabs error {r.status_code}: {r.text[:2000]}")
     r.raise_for_status()
     with open(out_path, "wb") as f:
         f.write(r.content)

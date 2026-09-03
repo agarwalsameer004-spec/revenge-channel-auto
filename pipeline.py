@@ -29,7 +29,15 @@ import textwrap
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
-ELEVENLABS_API_KEY = os.environ["ELEVENLABS_API_KEY"].strip()
+# Narration provider. "google" is the default: Google Cloud TTS gives 1,000,000
+# free characters/month against our ~91k usage, versus ElevenLabs Free at 10,000
+# which cannot finish even one long-form video. Switch back with TTS_PROVIDER.
+TTS_PROVIDER = os.environ.get("TTS_PROVIDER", "google").strip().lower()
+
+GOOGLE_TTS_API_KEY = os.environ.get("GOOGLE_TTS_API_KEY", "").strip()
+GOOGLE_VOICE_NAME = os.environ.get("GOOGLE_VOICE_NAME", "").strip()
+
+ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
 ELEVENLABS_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID")  # optional override
 PEXELS_API_KEY = os.environ["PEXELS_API_KEY"].strip()
 
@@ -96,7 +104,10 @@ def resolve_voice_id():
     return ELEVENLABS_VOICE_ID
 
 
-MAX_TTS_CHARS = 9500      # ElevenLabs rejects a single request over 10,000
+# Per-request caps differ by provider: ElevenLabs rejects over 10,000 characters,
+# Google Cloud TTS over 5,000 bytes. Beats run ~860 chars so neither normally
+# bites, but the splitter below guarantees it.
+MAX_TTS_CHARS = 4500 if TTS_PROVIDER == "google" else 9500
 BEAT_GAP_SECONDS = 0.35   # breath between beats; also masks any prosody seam
 
 
@@ -165,7 +176,98 @@ def concat_audio(paths, out_path, gap=0.0):
                    check=True, timeout=600)
 
 
+_GOOGLE_VOICE = None
+
+
+def resolve_google_voice():
+    """Pick the best available en-US voice at runtime rather than hardcoding a
+    name that may not exist on this project. Preference order is quality-first:
+    Chirp3 HD, then Neural2, then Wavenet, then Standard."""
+    global _GOOGLE_VOICE
+    if _GOOGLE_VOICE:
+        return _GOOGLE_VOICE
+    if GOOGLE_VOICE_NAME:
+        _GOOGLE_VOICE = GOOGLE_VOICE_NAME
+        print(f"  voice (pinned): {_GOOGLE_VOICE}")
+        return _GOOGLE_VOICE
+
+    r = requests.get("https://texttospeech.googleapis.com/v1/voices",
+                     params={"languageCode": "en-US"},
+                     headers={"X-Goog-Api-Key": GOOGLE_TTS_API_KEY}, timeout=30)
+    if not r.ok:
+        print(f"Google /v1/voices error {r.status_code}: {r.text[:1000]}")
+    r.raise_for_status()
+    voices = r.json().get("voices", [])
+    if not voices:
+        raise SystemExit("Google TTS returned no en-US voices.")
+
+    def rank(v):
+        n = v.get("name", "")
+        tier = (0 if "Chirp3-HD" in n else 1 if "Neural2" in n else
+                2 if "Wavenet" in n else 3)
+        # A male voice suits authoritative case-study narration.
+        gender = 0 if v.get("ssmlGender") == "MALE" else 1
+        return (tier, gender, n)
+
+    best = sorted(voices, key=rank)[0]
+    _GOOGLE_VOICE = best["name"]
+    print(f"  voice: {_GOOGLE_VOICE} ({best.get('ssmlGender')})  "
+          f"[{len(voices)} en-US voices available]")
+    return _GOOGLE_VOICE
+
+
+def google_tts(text, out_path):
+    """Synthesise via Google Cloud TTS.
+
+    Uses the REST endpoint with an API key header: the official client
+    libraries do not accept API keys, but the REST API does, which keeps setup
+    to one secret instead of a service-account JSON.
+
+    Returns None — Google does not return character alignment, so captions fall
+    back to proportional timing within each beat (beats are only ~40-55s, so
+    drift stays small).
+    """
+    import base64
+
+    voice = resolve_google_voice()
+    payload = {
+        "input": {"text": text},
+        "voice": {"languageCode": "en-US", "name": voice},
+        "audioConfig": {"audioEncoding": "MP3"},
+    }
+    # Chirp voices reject speaking-rate tuning; others benefit from a slightly
+    # slower, more deliberate read for this format.
+    if "Chirp" not in voice:
+        payload["audioConfig"]["speakingRate"] = 0.95
+
+    r = requests.post("https://texttospeech.googleapis.com/v1/text:synthesize",
+                      json=payload,
+                      headers={"X-Goog-Api-Key": GOOGLE_TTS_API_KEY,
+                               "Content-Type": "application/json"},
+                      timeout=180)
+    if not r.ok:
+        print(f"Google TTS error {r.status_code}: {r.text[:2000]}")
+    r.raise_for_status()
+    audio = r.json().get("audioContent")
+    if not audio:
+        raise SystemExit("Google TTS returned no audioContent.")
+    with open(out_path, "wb") as f:
+        f.write(base64.b64decode(audio))
+    return None
+
+
 def generate_voice(text, out_path):
+    """Dispatch to the configured narration provider."""
+    if TTS_PROVIDER == "google":
+        if not GOOGLE_TTS_API_KEY:
+            raise SystemExit("GOOGLE_TTS_API_KEY is not set (TTS_PROVIDER=google).")
+        return google_tts(text, out_path)
+    if not ELEVENLABS_API_KEY:
+        raise SystemExit("ELEVENLABS_API_KEY is not set (TTS_PROVIDER=elevenlabs).")
+    return elevenlabs_tts(text, out_path)
+
+
+def elevenlabs_tts(text, out_path):
     """Synthesise narration. Returns character-level alignment when the API
     provides it, else None (callers fall back to proportional timing)."""
     import base64

@@ -256,8 +256,23 @@ def google_tts(text, out_path):
     return None
 
 
+# Hard spend guard. Google Cloud TTS requires a billing account, so a runaway
+# retry loop would bill a real card rather than simply erroring. One long-form
+# script is ~12k characters; 60k is five scripts' worth in a single run, which
+# can only mean something has gone wrong. Abort rather than spend.
+TTS_CHAR_BUDGET = int(os.environ.get("TTS_CHAR_BUDGET", "60000"))
+_TTS_CHARS_USED = 0
+
+
 def generate_voice(text, out_path):
     """Dispatch to the configured narration provider."""
+    global _TTS_CHARS_USED
+    _TTS_CHARS_USED += len(text)
+    if _TTS_CHARS_USED > TTS_CHAR_BUDGET:
+        raise SystemExit(
+            f"Aborting: this run has asked for {_TTS_CHARS_USED} characters of "
+            f"narration, over the {TTS_CHAR_BUDGET} budget. Something is looping."
+        )
     if TTS_PROVIDER == "google":
         if not GOOGLE_TTS_API_KEY:
             raise SystemExit("GOOGLE_TTS_API_KEY is not set (TTS_PROVIDER=google).")

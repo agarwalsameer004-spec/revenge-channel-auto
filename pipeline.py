@@ -96,6 +96,75 @@ def resolve_voice_id():
     return ELEVENLABS_VOICE_ID
 
 
+MAX_TTS_CHARS = 9500      # ElevenLabs rejects a single request over 10,000
+BEAT_GAP_SECONDS = 0.35   # breath between beats; also masks any prosody seam
+
+
+def split_long(text, limit=MAX_TTS_CHARS):
+    """Safety net if a single beat is ever written over the request cap."""
+    if len(text) <= limit:
+        return [text]
+    out, cur = [], ""
+    for sentence in text.replace("? ", "?|").replace("! ", "!|") \
+                        .replace(". ", ".|").split("|"):
+        if len(cur) + len(sentence) + 1 > limit and cur:
+            out.append(cur.strip())
+            cur = sentence
+        else:
+            cur += (" " if cur else "") + sentence
+    if cur.strip():
+        out.append(cur.strip())
+    return out
+
+
+def synthesise_beats(beats, out_dir):
+    """One TTS request per beat.
+
+    Required, not merely tidy: a 15-25 minute script runs 11-20k characters and
+    ElevenLabs caps a single request at 10,000. Synthesising per beat also
+    yields the REAL duration of each beat, so footage syncs to the story
+    exactly instead of being apportioned by word count.
+    """
+    parts = []
+    for i, (text, keywords) in enumerate(beats):
+        chunks = split_long(text)
+        chunk_paths, aligns = [], []
+        for j, chunk in enumerate(chunks):
+            path = os.path.join(out_dir, f"beat_{i:03d}_{j}.mp3")
+            aligns.append(generate_voice(chunk, path))
+            chunk_paths.append(path)
+        if len(chunk_paths) == 1:
+            path, align = chunk_paths[0], aligns[0]
+        else:
+            path = os.path.join(out_dir, f"beat_{i:03d}.mp3")
+            concat_audio(chunk_paths, path)
+            align = None
+        dur = media_duration(path)
+        parts.append({"path": path, "text": text, "keywords": keywords,
+                      "align": align, "dur": dur})
+        print(f"  beat {i+1:2d}/{len(beats)}: {dur:5.1f}s  ({len(text)} chars)")
+    return parts
+
+
+def concat_audio(paths, out_path, gap=0.0):
+    """Join mp3 parts, optionally with a short silence between them."""
+    list_file = out_path + ".txt"
+    silence = None
+    if gap > 0:
+        silence = out_path + ".sil.mp3"
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi",
+                        "-i", f"anullsrc=r=44100:cl=mono", "-t", f"{gap}",
+                        "-c:a", "libmp3lame", silence], check=True, timeout=120)
+    with open(list_file, "w") as f:
+        for k, p in enumerate(paths):
+            f.write(f"file '{os.path.abspath(p)}'\n")
+            if silence and k < len(paths) - 1:
+                f.write(f"file '{os.path.abspath(silence)}'\n")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat",
+                    "-safe", "0", "-i", list_file, "-c", "copy", out_path],
+                   check=True, timeout=600)
+
+
 def generate_voice(text, out_path):
     """Synthesise narration. Returns character-level alignment when the API
     provides it, else None (callers fall back to proportional timing)."""
@@ -489,22 +558,25 @@ def main():
     full_text = " ".join(t for t, _ in beats)
     print(f"Producing: {item['title']}  ({len(beats)} beats, {len(full_text.split())} words)")
 
-    align = generate_voice(full_text, audio_path)
+    parts = synthesise_beats(beats, OUTPUT_DIR)
+    concat_audio([p["path"] for p in parts], audio_path, gap=BEAT_GAP_SECONDS)
     duration = media_duration(audio_path)
     print(f"  narration duration: {duration/60:.1f} min")
 
-    # Split the timeline across beats by word share, so footage tracks the story.
-    counts = [len(t.split()) for t, _ in beats]
-    total_words = sum(counts) or 1
+    # Beat spans come from MEASURED audio, not a word-count guess, so the
+    # footage cuts land exactly where the narration moves on.
     spans, t0 = [], 0.0
-    for c in counts:
-        t1 = t0 + duration * c / total_words
-        spans.append((t0, t1))
-        t0 = t1
+    for p in parts:
+        spans.append((t0, t0 + p["dur"]))
+        t0 += p["dur"] + BEAT_GAP_SECONDS
 
     if CAPTIONS:
-        write_subtitles(caption_lines(full_text, align, duration), subs_path)
-        print("  captions written")
+        lines = []
+        for p, (start, _) in zip(parts, spans):
+            for s, e, txt in caption_lines(p["text"], p["align"], p["dur"]):
+                lines.append((start + s, start + e, txt))
+        write_subtitles(lines, subs_path)
+        print(f"  captions written ({len(lines)} cues)")
 
     plan = fetch_story_synced_clips(beats, spans, OUTPUT_DIR)
     assemble_video(plan, audio_path, subs_path, video_path, duration)

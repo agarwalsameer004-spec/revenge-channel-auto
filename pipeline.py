@@ -25,14 +25,21 @@ import os
 import random
 import subprocess
 import textwrap
+import time
 
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
-# Narration provider. "google" is the default: Google Cloud TTS gives 1,000,000
-# free characters/month against our ~91k usage, versus ElevenLabs Free at 10,000
-# which cannot finish even one long-form video. Switch back with TTS_PROVIDER.
-TTS_PROVIDER = os.environ.get("TTS_PROVIDER", "google").strip().lower()
+# Narration provider. "edge" is the default: Microsoft Edge neural voices need
+# no account, no card and no billing, which matters because Google Cloud in
+# India demands a INR 1,000 prepayment before the free tier can be touched.
+# Google Cloud TTS ("google") stays fully wired and is the better voice; flip
+# TTS_PROVIDER to "google" once GOOGLE_TTS_API_KEY exists. "elevenlabs" also
+# still works but its free tier (10,000 chars) cannot finish one long video.
+TTS_PROVIDER = os.environ.get("TTS_PROVIDER", "edge").strip().lower()
+
+EDGE_VOICE_NAME = os.environ.get("EDGE_VOICE_NAME", "").strip()
+EDGE_RATE = os.environ.get("EDGE_RATE", "-5%").strip()
 
 GOOGLE_TTS_API_KEY = os.environ.get("GOOGLE_TTS_API_KEY", "").strip()
 GOOGLE_VOICE_NAME = os.environ.get("GOOGLE_VOICE_NAME", "").strip()
@@ -107,7 +114,7 @@ def resolve_voice_id():
 # Per-request caps differ by provider: ElevenLabs rejects over 10,000 characters,
 # Google Cloud TTS over 5,000 bytes. Beats run ~860 chars so neither normally
 # bites, but the splitter below guarantees it.
-MAX_TTS_CHARS = 4500 if TTS_PROVIDER == "google" else 9500
+MAX_TTS_CHARS = 4500 if TTS_PROVIDER in ("google", "edge") else 9500
 BEAT_GAP_SECONDS = 0.35   # breath between beats; also masks any prosody seam
 
 
@@ -256,6 +263,131 @@ def google_tts(text, out_path):
     return None
 
 
+# Preference order when EDGE_VOICE_NAME is unset. Multilingual voices first:
+# they handle the Indian names, company names and figures in these scripts with
+# noticeably fewer mispronunciations than the older en-US neural voices.
+EDGE_VOICE_PREFERENCE = [
+    "en-US-AndrewMultilingualNeural",
+    "en-US-BrianMultilingualNeural",
+    "en-US-AndrewNeural",
+    "en-GB-RyanNeural",
+    "en-US-BrianNeural",
+    "en-US-GuyNeural",
+]
+
+
+def resolve_edge_voice():
+    """Pick the best available Edge voice rather than hardcoding one."""
+    global _EDGE_VOICE
+    if _EDGE_VOICE:
+        return _EDGE_VOICE
+    if EDGE_VOICE_NAME:
+        _EDGE_VOICE = EDGE_VOICE_NAME
+        print(f"Edge voice (from EDGE_VOICE_NAME): {_EDGE_VOICE}")
+        return _EDGE_VOICE
+    import asyncio
+    import edge_tts
+    try:
+        names = {v["ShortName"] for v in asyncio.run(edge_tts.list_voices())}
+    except Exception as exc:                      # listing is a nicety, not a need
+        print(f"  (voice listing failed: {exc}; using first preference)")
+        _EDGE_VOICE = EDGE_VOICE_PREFERENCE[0]
+        return _EDGE_VOICE
+    for name in EDGE_VOICE_PREFERENCE:
+        if name in names:
+            _EDGE_VOICE = name
+            print(f"Edge voice: {name}  [{len(names)} voices available]")
+            return name
+    raise SystemExit("No suitable Edge voice found.")
+
+
+_EDGE_VOICE = None
+
+
+def boundaries_to_alignment(text, boundaries):
+    """Convert Edge WordBoundary events into the character-alignment shape the
+    caption builder already understands.
+
+    Edge reports offsets in 100-nanosecond ticks. Spreading each word's span
+    evenly across its characters is an approximation, but captions are grouped
+    back into ~42-character lines, so per-character error never surfaces.
+    """
+    if not boundaries:
+        return None
+    chars, starts, ends = [], [], []
+    cursor = 0
+    for b in boundaries:
+        word = b.get("text") or ""
+        if not word:
+            continue
+        idx = text.find(word, cursor)
+        if idx == -1:                              # normalisation moved it; skip
+            continue
+        start = b["offset"] / 1e7
+        dur = max(b.get("duration", 0) / 1e7, 1e-3)
+        for k in range(cursor, idx):               # spaces/punctuation before it
+            chars.append(text[k]); starts.append(start); ends.append(start)
+        n = len(word)
+        for k, ch in enumerate(word):
+            chars.append(ch)
+            starts.append(start + dur * k / n)
+            ends.append(start + dur * (k + 1) / n)
+        cursor = idx + len(word)
+    tail = ends[-1] if ends else 0.0
+    for k in range(cursor, len(text)):
+        chars.append(text[k]); starts.append(tail); ends.append(tail)
+    return {"characters": chars,
+            "character_start_times_seconds": starts,
+            "character_end_times_seconds": ends}
+
+
+def edge_tts_synth(text, out_path, attempts=3):
+    """Synthesise via Microsoft Edge neural voices.
+
+    No key, no account, no billing. The trade-off is that this is an unofficial
+    endpoint, so it is retried with backoff and failures are made loud rather
+    than silently producing a truncated video.
+
+    Returns word-level alignment, which is strictly better than Google TTS here
+    (Google returns none), so captions land on the word rather than being
+    apportioned proportionally.
+    """
+    import asyncio
+    import edge_tts
+
+    voice = resolve_edge_voice()
+
+    async def run():
+        audio, boundaries = bytearray(), []
+        comm = edge_tts.Communicate(text, voice, rate=EDGE_RATE)
+        async for ev in comm.stream():
+            if ev["type"] == "audio":
+                audio.extend(ev["data"])
+            elif ev["type"] == "WordBoundary":
+                boundaries.append(ev)
+        return bytes(audio), boundaries
+
+    last = None
+    for attempt in range(1, attempts + 1):
+        try:
+            audio, boundaries = asyncio.run(run())
+            if not audio:
+                raise RuntimeError("edge-tts returned no audio")
+            with open(out_path, "wb") as f:
+                f.write(audio)
+            return boundaries_to_alignment(text, boundaries)
+        except Exception as exc:
+            last = exc
+            print(f"  edge-tts attempt {attempt}/{attempts} failed: {exc}")
+            if attempt < attempts:
+                time.sleep(3 * attempt)
+    raise SystemExit(
+        f"edge-tts failed after {attempts} attempts: {last}\n"
+        "This is an unofficial endpoint and can break without notice. "
+        "Set TTS_PROVIDER=google (with GOOGLE_TTS_API_KEY) to switch providers."
+    )
+
+
 # Hard spend guard. Google Cloud TTS requires a billing account, so a runaway
 # retry loop would bill a real card rather than simply erroring. One long-form
 # script is ~12k characters; 60k is five scripts' worth in a single run, which
@@ -273,6 +405,8 @@ def generate_voice(text, out_path):
             f"Aborting: this run has asked for {_TTS_CHARS_USED} characters of "
             f"narration, over the {TTS_CHAR_BUDGET} budget. Something is looping."
         )
+    if TTS_PROVIDER == "edge":
+        return edge_tts_synth(text, out_path)
     if TTS_PROVIDER == "google":
         if not GOOGLE_TTS_API_KEY:
             raise SystemExit("GOOGLE_TTS_API_KEY is not set (TTS_PROVIDER=google).")

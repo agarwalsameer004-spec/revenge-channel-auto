@@ -2,9 +2,8 @@ name: Publish YouTube Video
 
 on:
   schedule:
-    # 2x/week (Tue + Fri, 10:00 UTC). Deliberately not 3x: at ~11.5k characters
-    # per long-form script, 3x/week exceeds the ElevenLabs Creator allowance and
-    # forces a jump from $22 to $99/month for no algorithmic benefit.
+    # 2x/week (Tue + Fri, 10:00 UTC). Deliberately not higher: the constraint
+    # is script research, not quota. Growing the channel beats flooding it.
     - cron: '0 10 * * 2,5'
   workflow_dispatch: {}
 
@@ -31,9 +30,12 @@ jobs:
 
       - name: Run pipeline
         env:
-          # Google Cloud TTS: 1,000,000 free characters/month against ~91k used
-          # here. ElevenLabs Free is 10,000, which cannot finish one long video.
-          TTS_PROVIDER: google
+          # Microsoft Edge neural voices: no key, no account, no billing.
+          # Google Cloud TTS is the better voice but Google Cloud India requires
+          # a INR 1,000 prepayment before the free tier unlocks. To switch:
+          # add GOOGLE_TTS_API_KEY as a secret and set TTS_PROVIDER to google.
+          TTS_PROVIDER: edge
+          EDGE_VOICE_NAME: ${{ secrets.EDGE_VOICE_NAME }}
           GOOGLE_TTS_API_KEY: ${{ secrets.GOOGLE_TTS_API_KEY }}
           GOOGLE_VOICE_NAME: ${{ secrets.GOOGLE_VOICE_NAME }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}

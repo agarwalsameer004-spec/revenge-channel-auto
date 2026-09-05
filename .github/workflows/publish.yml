@@ -7,6 +7,12 @@ on:
     - cron: '0 10 * * 2,5'
   workflow_dispatch: {}
 
+# The final step pushes the updated queue back to the repo. Without this the
+# runner's token is read-only, git push exits 128, and the script is never
+# marked as published -- so the next run republishes the same video.
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest

@@ -21,6 +21,7 @@ instead of cycling keywords blindly:
   }
 """
 import json
+import math
 import os
 import random
 import subprocess
@@ -41,6 +42,14 @@ TTS_PROVIDER = os.environ.get("TTS_PROVIDER", "edge").strip().lower()
 EDGE_VOICE_NAME = os.environ.get("EDGE_VOICE_NAME", "").strip()
 EDGE_RATE = os.environ.get("EDGE_RATE", "-5%").strip()
 
+# Upload visibility. Defaults to public so the scheduled runs behave as before;
+# a manual run can pass unlisted/private to audition a change before it is
+# seen. A non-public run does NOT consume the script (see main), so the test
+# video and the real one are built from the same source.
+YT_PRIVACY = os.environ.get("YT_PRIVACY", "public").strip().lower()
+if YT_PRIVACY not in ("public", "unlisted", "private"):
+    YT_PRIVACY = "public"
+
 GOOGLE_TTS_API_KEY = os.environ.get("GOOGLE_TTS_API_KEY", "").strip()
 GOOGLE_VOICE_NAME = os.environ.get("GOOGLE_VOICE_NAME", "").strip()
 
@@ -52,7 +61,8 @@ QUEUE_FILE = "scripts_queue.json"
 OUTPUT_DIR = "output"
 
 WIDTH, HEIGHT, FPS = 1920, 1080, 25
-SECONDS_PER_CLIP = 6.0          # visual change cadence
+SECONDS_PER_CLIP = 3.2   # measured median shot in this niche is 1.4-3.2s
+MAX_SHOT_SECONDS = 4.0   # hard ceiling: nothing sits unchanged longer
 CAPTIONS = os.environ.get("CAPTIONS", "1") != "0"
 MUSIC = os.environ.get("MUSIC", "1") != "0"
 MUSIC_GAIN_DB = -26             # bed sits well under the narration
@@ -608,7 +618,7 @@ def fetch_story_synced_clips(beats, beat_spans, out_dir, max_unique=60):
 
     for (text, keywords), (start, end) in zip(beats, beat_spans):
         span = max(end - start, 0.1)
-        n = max(1, int(round(span / SECONDS_PER_CLIP)))
+        n = max(1, math.ceil(span / SECONDS_PER_CLIP))
         slot = span / n
         for k in range(n):
             kw = keywords[k % len(keywords)]
@@ -639,7 +649,7 @@ def fetch_story_synced_clips(beats, beat_spans, out_dir, max_unique=60):
                     continue
                 chosen = pool[k % len(pool)]
 
-            plan.append((chosen, slot))
+            plan.append({"kind": "footage", "src": chosen, "slot": slot})
 
     if not plan:
         raise SystemExit("No stock clips fetched — check PEXELS_API_KEY / keywords.")
@@ -652,6 +662,127 @@ def fetch_story_synced_clips(beats, beat_spans, out_dir, max_unique=60):
 # assembly
 # --------------------------------------------------------------------------- #
 
+
+
+# --------------------------------------------------------------------------- #
+# data cards
+# --------------------------------------------------------------------------- #
+
+def build_card_frames(spec, span):
+    """Turn one beat's card spec into frames. Returns [] if the spec is empty.
+
+    Card figures come from the SCRIPT, which is sourced. Nothing here invents a
+    number -- a wrong figure in 150px type is how this format loses trust.
+    """
+    import visuals as v
+
+    kind = spec.get("type")
+    if kind == "headlines":
+        return v.headline_stack_frames(spec["items"], hold_frames=int(1.9 * FPS))
+    if kind == "number":
+        return v.giant_number_frames(spec["figure"], spec.get("caption", ""),
+                                     spec.get("source", ""))
+    if kind == "compare":
+        items = [dict(i, colour=getattr(v, i.get("colour", "RED"))) for i in spec["items"]]
+        return v.comparison_frames(spec.get("title", ""), items)
+    if kind == "rows":
+        rows = [dict(r, colour=getattr(v, r.get("colour", "WHITE"))) for r in spec["rows"]]
+        total = spec.get("total")
+        if total:
+            total = dict(total, colour=getattr(v, total.get("colour", "RED")))
+        return v.metric_rows_frames(spec.get("title", ""), rows, total)
+    print(f"  unknown card type {kind!r}, falling back to footage")
+    return []
+
+
+def render_card_segment(frames, span, out_path):
+    """Render a card sequence to exactly `span` seconds."""
+    import render_cards as rc
+    import shutil
+
+    seq = out_path + ".seq"
+    shutil.rmtree(seq, ignore_errors=True)
+    want = max(int(span * FPS), 2)
+
+    # Stretch or squeeze the holds so the cards fill the beat exactly.
+    natural = sum(min(h, int(rc.MAX_STILL * FPS)) for _, h in frames) or 1
+    k = want / natural
+    scaled = [(img, max(6, int(min(h, int(rc.MAX_STILL * FPS)) * k))) for img, h in frames]
+
+    n = rc.write_sequence(scaled, seq)
+    # trim/pad to land on the exact frame count
+    files = sorted(os.listdir(seq))
+    while len(files) > want:
+        os.remove(os.path.join(seq, files.pop()))
+    if len(files) < want and files:
+        last = os.path.join(seq, files[-1])
+        for j in range(len(files), want):
+            shutil.copy(last, os.path.join(seq, f"f_{j:06d}.png"))
+
+    subprocess.run([
+        "ffmpeg", "-y", "-loglevel", "error",
+        "-framerate", str(FPS), "-i", os.path.join(seq, "f_%06d.png"),
+        "-t", f"{span:.3f}", "-an",
+        "-vf", f"fps={FPS},setsar=1",
+        "-c:v", "libx264", "-preset", "ultrafast", "-crf", "20",
+        "-pix_fmt", "yuv420p", out_path,
+    ], check=True, timeout=1200)
+    shutil.rmtree(seq, ignore_errors=True)
+    return out_path
+
+
+def build_visual_plan(beats, spans, item, out_dir):
+    """Beats carrying a card spec render as graphics; the rest get footage.
+
+    Returns (plan, card_spans) -- card_spans are the stretches where captions
+    must be suppressed, because the card already carries the words.
+    """
+    beat_specs = [(b.get("card") if isinstance(b, dict) else None)
+                  for b in (item.get("beats") or [])]
+    beat_specs += [None] * (len(beats) - len(beat_specs))
+
+    card_plan, card_spans = {}, []
+    for i, (spec, (start, end)) in enumerate(zip(beat_specs, spans)):
+        if not spec:
+            continue
+        frames = build_card_frames(spec, end - start)
+        if not frames:
+            continue
+        seg = os.path.join(out_dir, f"card_{i:03d}.mp4")
+        render_card_segment(frames, end - start, seg)
+        card_plan[i] = {"kind": "card", "src": seg, "slot": end - start}
+        card_spans.append((start, end))
+        print(f"  beat {i+1}: {spec['type']} card ({end-start:.1f}s)")
+
+    # Footage only for the beats with no card, so Pexels is never called for a
+    # beat that is going to be graphics anyway.
+    plain = [(i, b) for i, b in enumerate(beats) if i not in card_plan]
+    plan = []
+    if plain:
+        sub_plan = fetch_story_synced_clips([b for _, b in plain],
+                                            [spans[i] for i, _ in plain], out_dir)
+    else:
+        sub_plan = []
+
+    # Rebuild in timeline order: cards drop into their own beat slots.
+    it = iter(sub_plan)
+    for i in range(len(beats)):
+        if i in card_plan:
+            plan.append(card_plan[i])
+        else:
+            start, end = spans[i]
+            span = max(end - start, 0.1)
+            n = max(1, math.ceil(span / SECONDS_PER_CLIP))
+            for _ in range(n):
+                nxt = next(it, None)
+                if nxt:
+                    plan.append(nxt)
+    if not plan:
+        raise SystemExit("Visual plan is empty.")
+    print(f"  visual plan: {len(plan)} segments, {len(card_plan)} card beats")
+    return plan, card_spans
+
+
 def assemble_video(plan, audio_path, subtitle_path, out_path, duration):
     """Each clip is trimmed to its slot, given a slow push-in, then concatenated.
 
@@ -663,7 +794,18 @@ def assemble_video(plan, audio_path, subtitle_path, out_path, duration):
     os.makedirs(seg_dir, exist_ok=True)
     segments = []
 
-    for i, (clip, slot) in enumerate(plan):
+    for i, entry in enumerate(plan):
+        if isinstance(entry, dict):
+            kind, clip, slot = entry["kind"], entry["src"], entry["slot"]
+        else:                                   # legacy (clip, slot) tuple
+            kind, (clip, slot) = "footage", entry
+
+        # Card segments are already rendered at the right size and already move
+        # (they build element by element). Ken Burns on top would fight that.
+        if kind == "card":
+            segments.append(clip)
+            continue
+
         seg = os.path.join(seg_dir, f"seg_{i:04d}.mp4")
         frames = max(int(slot * FPS), 2)
         # Ken Burns needs only enough headroom for the max zoom (1.08). Scaling
@@ -775,7 +917,7 @@ def upload_to_youtube(video_path, thumb_path, title, description):
     body = {
         "snippet": {"title": title[:100], "description": description[:4900],
                     "categoryId": "22"},
-        "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False},
+        "status": {"privacyStatus": YT_PRIVACY, "selfDeclaredMadeForKids": False},
     }
     response = yt.videos().insert(
         part="snippet,status", body=body,
@@ -821,23 +963,46 @@ def main():
         spans.append((t0, t0 + p["dur"]))
         t0 += p["dur"] + BEAT_GAP_SECONDS
 
-    if CAPTIONS:
-        lines = []
-        for p, (start, _) in zip(parts, spans):
-            for s, e, txt in caption_lines(p["text"], p["align"], p["dur"]):
-                lines.append((start + s, start + e, txt))
-        write_subtitles(lines, subs_path)
-        print(f"  captions written ({len(lines)} cues)")
+    plan, card_spans = build_visual_plan(beats, spans, item, OUTPUT_DIR)
 
-    plan = fetch_story_synced_clips(beats, spans, OUTPUT_DIR)
+    if CAPTIONS:
+        import captions as cap
+        cards = []
+        for p, (start, _) in zip(parts, spans):
+            words = cap.words_from_alignment(p["text"], p["align"])
+            if not words:
+                # No word timings: apportion across the beat rather than drop
+                # captions entirely.
+                ws, n, t = [], len(p["text"].split()), 0.0
+                for w in p["text"].split():
+                    d = p["dur"] / max(n, 1)
+                    ws.append((w, t, t + d)); t += d
+                words = ws
+            words = [(w, start + a, start + b) for w, a, b in words]
+            cards.extend(cap.group_words(words))
+
+        # A card already carries its own words in large type. Burning the
+        # narration over it says the same thing twice and fights the graphic.
+        def over_card(card):
+            mid = (card[0][1] + card[-1][2]) / 2
+            return any(a <= mid <= b for a, b in card_spans)
+
+        kept = [c for c in cards if not over_card(c)]
+        cap.write_ass(kept, subs_path)
+        print(f"  captions: {len(kept)} cards "
+              f"({len(cards) - len(kept)} suppressed over graphics)")
+
     assemble_video(plan, audio_path, subs_path, video_path, duration)
     print(f"  video assembled: {os.path.getsize(video_path)/1e6:.1f} MB")
 
     make_thumbnail(item["title"], thumb_path)
     video_id = upload_to_youtube(video_path, thumb_path,
                                  item["title"], item.get("description", ""))
-    mark_used(item, queue)
-    print(f"Uploaded: https://youtu.be/{video_id}")
+    if YT_PRIVACY == "public":
+        mark_used(item, queue)
+    else:
+        print(f"  {YT_PRIVACY} run: script left in the queue for the real publish")
+    print(f"Uploaded ({YT_PRIVACY}): https://youtu.be/{video_id}")
 
 
 if __name__ == "__main__":

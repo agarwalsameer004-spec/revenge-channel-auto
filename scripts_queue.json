@@ -1,1 +1,238 @@
-[{"id":101,"title":"WeWork Didn't Fail Because Of Adam Neumann","description":"In August 2019 WeWork filed to go public at a $47 billion valuation. Six weeks later the offering was dead. Most coverage blames one man. The filing tells a different story: $47.2 billion of long-dated lease obligations funded by customers who could leave in thirty days, and a share structure that made the problem unchallengeable from inside.\n\nAll figures are taken from WeWork's public S-1 filing and contemporaneous reporting. Sources:\n- WeWork S-1, SEC EDGAR, 14 Aug 2019\n- CNBC, 'The strangest and most alarming things in WeWork's IPO filing', 17 Aug 2019\n- CNBC, 'WeWork CEO returns $5.9 million', 4 Sept 2019\n- Harvard Law School Forum on Corporate Governance, 15 Jan 2020\n\nThis video is commentary and analysis of public filings.","used":false,"beats":[{"keywords":["sec filing document","empty glass office","stock market crash screen","financial newspaper"],"text":"In August 2019, a company filed a document with American regulators that it hoped would make its founders billionaires. Six weeks later the offering was withdrawn, the chief executive was gone, and the valuation had fallen from forty-seven billion dollars to under eight. Most people remember the theatrics. The tequila. The private jet. The man who trademarked the word we and sold it to his own company. Those stories are true, and they are almost entirely beside the point. Because buried in the balance sheet of that filing was a single pair of numbers that made the collapse arithmetic rather than opinion. Not a scandal. Not a personality. Arithmetic. WeWork owed forty-seven point two billion dollars in future lease payments. And almost none of its customers were obliged to stay past next month. That is the whole story. Everything else is decoration."},{"keywords":["empty office floor","coworking space people","desks being installed","office building lobby"],"text":"Let's start with what WeWork actually was, without the mockery, because the mockery makes people stupid about this. The model was simple. Sign a long lease on an empty floor of an office building. Fifteen years, typically. Spend money turning it into somewhere people want to sit. Then rent desks inside it to small companies and freelancers, month to month. You are buying wholesale and selling retail. That is a completely legitimate business. Regus had been doing a version of it since nineteen eighty-nine. And the demand was real. That is the part critics still get wrong. People genuinely wanted these spaces. Revenue in the first half of two thousand nineteen more than doubled against the year before. That is not a fake business with no customers. That is a product people were actively buying. So if the demand was real, why is the company bankrupt?"},{"keywords":["hourglass time","long corridor building","calendar pages","bank vault"],"text":"Because of something that has killed more businesses than fraud ever has, and that almost nobody outside of banking has a name for. Duration mismatch. Here it is in one sentence. Your obligations last fifteen years and your income lasts thirty days. When times are good, this is invisible. Beautiful, even. You have locked in cheap long-term rent and you are charging premium short-term rates, and the gap between them is your profit. When times are bad, it is the only thing that matters. Your customers leave in thirty days. Your landlords do not leave for fifteen years. A bank that borrows short and lends long is regulated within an inch of its life precisely because this structure is dangerous. WeWork ran the same structure in commercial property, and nobody regulated anything, because on paper it was a technology company."},{"keywords":["financial statement closeup","red ink accounting","calculator numbers","annual report pages"],"text":"Now the filing itself. A public document. Anyone could have read it. Very few did. Net loss for two thousand eighteen: one point nine billion dollars. Net loss for the first half of two thousand nineteen alone: more than nine hundred million dollars. Losing money is not damning by itself. Amazon lost money for years. The question is always the same. What is the loss buying? For Amazon, the losses bought warehouses and customers who came back on their own. Assets and habits. Things that keep paying you after you stop spending. For WeWork, the losses bought lease obligations. The spending did not create an asset. It created a bill."},{"keywords":["skyscraper towers","bar chart growing","contract signing pen","city financial district"],"text":"Future lease payment obligations as of the thirtieth of June, two thousand nineteen: forty-seven point two billion dollars. At the end of two thousand eighteen, that same figure had been about thirty-four billion. Stop and hold that for a second. In six months, the company added roughly thirteen billion dollars of future obligations. That is not growth in the sense investors were being sold. Every new location made the number worse, not better, because each one added fifteen years of certain liability against thirty days of uncertain revenue. The faster it grew, the more certainly it died. Growth was the disease presenting itself as the cure."},{"keywords":["burning money","fuel gauge empty","clock ticking","empty wallet"],"text":"And then the number that decides how long you have. Estimated monthly cash burn: one hundred fifty to two hundred million dollars. Roughly six months of runway. So here is the honest summary of that filing in plain language. A company burning two hundred million dollars a month, carrying forty-seven billion in fifteen-year commitments, funded by customers who could walk out with thirty days notice, asking the public to hand it more money at a forty-seven billion dollar valuation. Written down like that, nobody would fund it. Which is precisely why almost nobody wrote it down like that."},{"keywords":["boardroom empty chairs","legal documents stack","contract fine print","courthouse columns"],"text":"Here is the question that actually matters, and the one most coverage skips. This was not a small company. There were sophisticated investors. A board. Auditors. Bankers. Dozens of intelligent, well-paid people with access to every one of these numbers. Why did nobody stop it? Because of how the shares were built. WeWork had multiple classes of stock. Ordinary Class A shares carried one vote each. The founder's Class B and Class C shares carried twenty votes each. Twenty to one. Which means you could own a large economic share of that company and have essentially no ability to change any decision inside it."},{"keywords":["signing contract closeup","handshake business deal","old documents archive","lawyer office desk"],"text":"This is the pattern I want you to actually take away, because it is not unique to WeWork and it will happen to somebody watching this. Control is not taken during the crisis. Control is settled long before the crisis, in paperwork, while everyone is still optimistic and nobody wants to seem difficult. The moment you need governance is the moment it is far too late to negotiate it. Governance is bought in the good years and spent in the bad ones. Nobody argues about voting rights when the company is growing and everyone is friends. That is exactly when the argument is cheap, and exactly when nobody has it."},{"keywords":["commercial property building","rental agreement paper","keys handover","real estate office"],"text":"And the related-party arrangements in that filing show what unchecked control looks like in practice. All of it disclosed. All of it in the public document. The founder held stakes in four commercial properties that were leased to WeWork. Payments to those landlord entities between two thousand sixteen and June two thousand nineteen totalled twenty point nine million dollars. He was, in part, his own landlord. Sitting on both sides of a negotiation, with twenty votes to one on the side that was supposed to be checking him."},{"keywords":["trademark registration document","brand logo design","newspaper headline scandal","person leaving office"],"text":"And the company paid five point nine million dollars to an entity he controlled, for the rights to the trademark we, the word the company was renaming itself around. I want to be fair here, because fairness is the only reason this analysis is worth anything. After the filing drew public criticism, he returned that five point nine million in full, in September two thousand nineteen. But notice what had to happen for it to be returned. Not a board vote. Not an audit committee. Public embarrassment. The internal mechanisms that were supposed to catch it had already been switched off. Not illegally. Structurally. Twenty votes to one."},{"keywords":["newspaper printing press","people reading news phone","trading floor screens","stock chart falling"],"text":"The filing became public in August two thousand nineteen. And then something happened that the private markets had not experienced in years. People read it. Not analysts with an allocation to protect. Not investors who had already committed. Journalists. Ordinary people. Anyone with a copy of the document and a free afternoon. The valuation had been set in January two thousand nineteen by a single large investor at forty-seven billion dollars. The public market looked at the same company six months later and started marking it down. To twenty billion. Then fifteen. Then ten."},{"keywords":["business man leaving building","empty executive office","corporate headquarters exterior","closed sign door"],"text":"The offering was withdrawn in September. The founder stepped down as chief executive that same month. By October the company needed rescue financing to survive, and got it, on terms that valued it at roughly eight billion dollars. Down about eighty percent in six weeks. And here is what I need you to notice. Nothing changed operationally. Nothing. The company on the thirtieth of September was the same company, with the same buildings, the same members and the same contracts, as the company on the first of August. The only thing that changed was who was allowed to look."},{"keywords":["auction gavel","crowd of people","private meeting room","public square people"],"text":"That is the mechanism I want you to remember, because it generalises far beyond this company. A private valuation is a negotiation between a small number of interested parties. Every one of them benefits from the number being high. A public valuation is an argument with everyone, including people who profit if you are wrong. Those two processes do not produce the same number. And when a company crosses from one to the other, the entire difference gets paid at once. WeWork eventually reached the public markets by another route in two thousand twenty-one. It filed for bankruptcy protection in November two thousand twenty-three. The lease obligations were still there. They were always going to still be there. That was the entire point."},{"keywords":["small business owner shop","warehouse workers","factory floor machinery","delivery truck loading"],"text":"I have run a business. Not at this scale, nowhere near it. But the failure mode here is not a big-company failure mode. It is the ordinary one, wearing a very expensive suit. Three things I would want anyone building anything to take from this. First. Match the duration of what you owe to the duration of what you earn. If your customer can leave in thirty days, do not sign anything that binds you for fifteen years without an escape. This applies at every scale. It applies to a factory lease. It applies to permanent staff hired against a single client's contract. It applies to a loan taken against an order that has not shipped. The numbers change. The shape never does. Most businesses that die of cash flow problems are actually dying of duration mismatch. The cash flow is the symptom."},{"keywords":["multiplying growth chart","assembly line production","domino effect falling","scales balance"],"text":"Second. Growth is not evidence of health. Growth is an amplifier. WeWork's growth was completely real, and it accelerated the failure. Every new floor added liability faster than it added durable revenue. If your unit economics are negative, scale is the worst thing that can happen to you. It converts a survivable problem into a fatal one, faster, while everyone around you applauds. Before you scale anything, you need to know whether the thing you are multiplying is positive. Most people never actually check. They assume that if the top line is rising, the rest will sort itself out. It does not sort itself out. It compounds in whichever direction it was already going."},{"keywords":["reading document late night","magnifying glass paper","desk lamp study","signature on contract"],"text":"Third. Read the governance documents when you do not need them. Nobody reads the articles of association when everyone is friends. That is precisely when they are written, and precisely when you still have the leverage to change them. By the time you need to know who controls a decision, the answer was fixed years earlier by a clause you skimmed in eleven minutes because reading it properly felt like an accusation. That is true at forty-seven billion dollars. It is equally true at four lakh rupees. The document does not care about the scale. It only cares what it says."},{"keywords":["stack of paper documents","office lights switching off","empty lobby night","city skyline dusk"],"text":"The lasting mistake with WeWork is treating it as a story about one unusual man. It is not. It is a story about a structure that would have failed under a careful, sober, boring chief executive too. Just more slowly, and with far less to write about. Forty-seven point two billion dollars of obligations. Thirty days of commitment on the other side. Twenty votes to one, so that nobody inside could force the question. Everything else, the jet, the tequila, the trademark, was the noise that made a very simple arithmetic problem entertaining enough to ignore. The filing said all of it. In public. Months ahead of time. Almost nobody read it. They rarely do."}]}]
+[
+  {
+    "id": 101,
+    "title": "WeWork Didn't Fail Because Of Adam Neumann",
+    "description": "In August 2019 WeWork filed to go public at a $47 billion valuation. Six weeks later the offering was dead. Most coverage blames one man. The filing tells a different story: $47.2 billion of long-dated lease obligations funded by customers who could leave in thirty days, and a share structure that made the problem unchallengeable from inside.\n\nAll figures are taken from WeWork's public S-1 filing and contemporaneous reporting. Sources:\n- WeWork S-1, SEC EDGAR, 14 Aug 2019\n- CNBC, 'The strangest and most alarming things in WeWork's IPO filing', 17 Aug 2019\n- CNBC, 'WeWork CEO returns $5.9 million', 4 Sept 2019\n- Harvard Law School Forum on Corporate Governance, 15 Jan 2020\n\nThis video is commentary and analysis of public filings.",
+    "used": false,
+    "beats": [
+      {
+        "keywords": [
+          "sec filing document",
+          "empty glass office",
+          "stock market crash screen",
+          "financial newspaper"
+        ],
+        "text": "In August 2019, a company filed a document with American regulators that it hoped would make its founders billionaires. Six weeks later the offering was withdrawn, the chief executive was gone, and the valuation had fallen from forty-seven billion dollars to under eight. Most people remember the theatrics. The tequila. The private jet. The man who trademarked the word we and sold it to his own company. Those stories are true, and they are almost entirely beside the point. Because buried in the balance sheet of that filing was a single pair of numbers that made the collapse arithmetic rather than opinion. Not a scandal. Not a personality. Arithmetic. WeWork owed forty-seven point two billion dollars in future lease payments. And almost none of its customers were obliged to stay past next month. That is the whole story. Everything else is decoration.",
+        "card": {
+          "type": "headlines",
+          "items": [
+            {
+              "headline": "WeWork owes $47.2 billion in future rent",
+              "source": "S-1 filing, August 2019",
+              "highlight": "$47.2 billion"
+            },
+            {
+              "headline": "Customers can leave in 30 days",
+              "source": "S-1 filing, August 2019",
+              "highlight": "30 days"
+            },
+            {
+              "headline": "Net loss of $1.9 billion in 2018",
+              "source": "S-1 filing, August 2019",
+              "highlight": "$1.9 billion"
+            },
+            {
+              "headline": "Valuation cut from $47bn to under $8bn",
+              "source": "Reuters, October 2019",
+              "highlight": "under $8bn"
+            },
+            {
+              "headline": "IPO withdrawn. CEO gone. Six weeks.",
+              "source": "Bloomberg, September 2019",
+              "highlight": "withdrawn"
+            }
+          ]
+        }
+      },
+      {
+        "keywords": [
+          "empty office floor",
+          "coworking space people",
+          "desks being installed",
+          "office building lobby"
+        ],
+        "text": "Let's start with what WeWork actually was, without the mockery, because the mockery makes people stupid about this. The model was simple. Sign a long lease on an empty floor of an office building. Fifteen years, typically. Spend money turning it into somewhere people want to sit. Then rent desks inside it to small companies and freelancers, month to month. You are buying wholesale and selling retail. That is a completely legitimate business. Regus had been doing a version of it since nineteen eighty-nine. And the demand was real. That is the part critics still get wrong. People genuinely wanted these spaces. Revenue in the first half of two thousand nineteen more than doubled against the year before. That is not a fake business with no customers. That is a product people were actively buying. So if the demand was real, why is the company bankrupt?"
+      },
+      {
+        "keywords": [
+          "hourglass time",
+          "long corridor building",
+          "calendar pages",
+          "bank vault"
+        ],
+        "text": "Because of something that has killed more businesses than fraud ever has, and that almost nobody outside of banking has a name for. Duration mismatch. Here it is in one sentence. Your obligations last fifteen years and your income lasts thirty days. When times are good, this is invisible. Beautiful, even. You have locked in cheap long-term rent and you are charging premium short-term rates, and the gap between them is your profit. When times are bad, it is the only thing that matters. Your customers leave in thirty days. Your landlords do not leave for fifteen years. A bank that borrows short and lends long is regulated within an inch of its life precisely because this structure is dangerous. WeWork ran the same structure in commercial property, and nobody regulated anything, because on paper it was a technology company.",
+        "card": {
+          "type": "compare",
+          "title": "Owed for fifteen years. Paid for by thirty days.",
+          "items": [
+            {
+              "label": "What WeWork owed\nits landlords",
+              "display": "15 YEARS",
+              "weight": 1.0,
+              "colour": "RED"
+            },
+            {
+              "label": "What its customers\nowed WeWork",
+              "display": "30 DAYS",
+              "weight": 0.055,
+              "colour": "AMBER"
+            }
+          ]
+        }
+      },
+      {
+        "keywords": [
+          "financial statement closeup",
+          "red ink accounting",
+          "calculator numbers",
+          "annual report pages"
+        ],
+        "text": "Now the filing itself. A public document. Anyone could have read it. Very few did. Net loss for two thousand eighteen: one point nine billion dollars. Net loss for the first half of two thousand nineteen alone: more than nine hundred million dollars. Losing money is not damning by itself. Amazon lost money for years. The question is always the same. What is the loss buying? For Amazon, the losses bought warehouses and customers who came back on their own. Assets and habits. Things that keep paying you after you stop spending. For WeWork, the losses bought lease obligations. The spending did not create an asset. It created a bill.",
+        "card": {
+          "type": "rows",
+          "title": "WeWork, six months to 30 June 2019",
+          "rows": [
+            {
+              "label": "Revenue",
+              "value": "+$1,535,420,000",
+              "colour": "GREEN"
+            },
+            {
+              "label": "Total expenses",
+              "value": "-$2,904,870,000",
+              "colour": "RED"
+            }
+          ],
+          "total": {
+            "label": "Loss from operations",
+            "value": "-$1,369,450,000",
+            "colour": "RED"
+          }
+        }
+      },
+      {
+        "keywords": [
+          "skyscraper towers",
+          "bar chart growing",
+          "contract signing pen",
+          "city financial district"
+        ],
+        "text": "Future lease payment obligations as of the thirtieth of June, two thousand nineteen: forty-seven point two billion dollars. At the end of two thousand eighteen, that same figure had been about thirty-four billion. Stop and hold that for a second. In six months, the company added roughly thirteen billion dollars of future obligations. That is not growth in the sense investors were being sold. Every new location made the number worse, not better, because each one added fifteen years of certain liability against thirty days of uncertain revenue. The faster it grew, the more certainly it died. Growth was the disease presenting itself as the cure.",
+        "card": {
+          "type": "number",
+          "figure": "$47,200,000,000",
+          "caption": "WeWork owed",
+          "source": "Future undiscounted minimum lease payments, 30 June 2019 - S-1"
+        }
+      },
+      {
+        "keywords": [
+          "burning money",
+          "fuel gauge empty",
+          "clock ticking",
+          "empty wallet"
+        ],
+        "text": "And then the number that decides how long you have. Estimated monthly cash burn: one hundred fifty to two hundred million dollars. Roughly six months of runway. So here is the honest summary of that filing in plain language. A company burning two hundred million dollars a month, carrying forty-seven billion in fifteen-year commitments, funded by customers who could walk out with thirty days notice, asking the public to hand it more money at a forty-seven billion dollar valuation. Written down like that, nobody would fund it. Which is precisely why almost nobody wrote it down like that."
+      },
+      {
+        "keywords": [
+          "boardroom empty chairs",
+          "legal documents stack",
+          "contract fine print",
+          "courthouse columns"
+        ],
+        "text": "Here is the question that actually matters, and the one most coverage skips. This was not a small company. There were sophisticated investors. A board. Auditors. Bankers. Dozens of intelligent, well-paid people with access to every one of these numbers. Why did nobody stop it? Because of how the shares were built. WeWork had multiple classes of stock. Ordinary Class A shares carried one vote each. The founder's Class B and Class C shares carried twenty votes each. Twenty to one. Which means you could own a large economic share of that company and have essentially no ability to change any decision inside it."
+      },
+      {
+        "keywords": [
+          "signing contract closeup",
+          "handshake business deal",
+          "old documents archive",
+          "lawyer office desk"
+        ],
+        "text": "This is the pattern I want you to actually take away, because it is not unique to WeWork and it will happen to somebody watching this. Control is not taken during the crisis. Control is settled long before the crisis, in paperwork, while everyone is still optimistic and nobody wants to seem difficult. The moment you need governance is the moment it is far too late to negotiate it. Governance is bought in the good years and spent in the bad ones. Nobody argues about voting rights when the company is growing and everyone is friends. That is exactly when the argument is cheap, and exactly when nobody has it."
+      },
+      {
+        "keywords": [
+          "commercial property building",
+          "rental agreement paper",
+          "keys handover",
+          "real estate office"
+        ],
+        "text": "And the related-party arrangements in that filing show what unchecked control looks like in practice. All of it disclosed. All of it in the public document. The founder held stakes in four commercial properties that were leased to WeWork. Payments to those landlord entities between two thousand sixteen and June two thousand nineteen totalled twenty point nine million dollars. He was, in part, his own landlord. Sitting on both sides of a negotiation, with twenty votes to one on the side that was supposed to be checking him."
+      },
+      {
+        "keywords": [
+          "trademark registration document",
+          "brand logo design",
+          "newspaper headline scandal",
+          "person leaving office"
+        ],
+        "text": "And the company paid five point nine million dollars to an entity he controlled, for the rights to the trademark we, the word the company was renaming itself around. I want to be fair here, because fairness is the only reason this analysis is worth anything. After the filing drew public criticism, he returned that five point nine million in full, in September two thousand nineteen. But notice what had to happen for it to be returned. Not a board vote. Not an audit committee. Public embarrassment. The internal mechanisms that were supposed to catch it had already been switched off. Not illegally. Structurally. Twenty votes to one."
+      },
+      {
+        "keywords": [
+          "newspaper printing press",
+          "people reading news phone",
+          "trading floor screens",
+          "stock chart falling"
+        ],
+        "text": "The filing became public in August two thousand nineteen. And then something happened that the private markets had not experienced in years. People read it. Not analysts with an allocation to protect. Not investors who had already committed. Journalists. Ordinary people. Anyone with a copy of the document and a free afternoon. The valuation had been set in January two thousand nineteen by a single large investor at forty-seven billion dollars. The public market looked at the same company six months later and started marking it down. To twenty billion. Then fifteen. Then ten."
+      },
+      {
+        "keywords": [
+          "business man leaving building",
+          "empty executive office",
+          "corporate headquarters exterior",
+          "closed sign door"
+        ],
+        "text": "The offering was withdrawn in September. The founder stepped down as chief executive that same month. By October the company needed rescue financing to survive, and got it, on terms that valued it at roughly eight billion dollars. Down about eighty percent in six weeks. And here is what I need you to notice. Nothing changed operationally. Nothing. The company on the thirtieth of September was the same company, with the same buildings, the same members and the same contracts, as the company on the first of August. The only thing that changed was who was allowed to look."
+      },
+      {
+        "keywords": [
+          "auction gavel",
+          "crowd of people",
+          "private meeting room",
+          "public square people"
+        ],
+        "text": "That is the mechanism I want you to remember, because it generalises far beyond this company. A private valuation is a negotiation between a small number of interested parties. Every one of them benefits from the number being high. A public valuation is an argument with everyone, including people who profit if you are wrong. Those two processes do not produce the same number. And when a company crosses from one to the other, the entire difference gets paid at once. WeWork eventually reached the public markets by another route in two thousand twenty-one. It filed for bankruptcy protection in November two thousand twenty-three. The lease obligations were still there. They were always going to still be there. That was the entire point."
+      },
+      {
+        "keywords": [
+          "small business owner shop",
+          "warehouse workers",
+          "factory floor machinery",
+          "delivery truck loading"
+        ],
+        "text": "I have run a business. Not at this scale, nowhere near it. But the failure mode here is not a big-company failure mode. It is the ordinary one, wearing a very expensive suit. Three things I would want anyone building anything to take from this. First. Match the duration of what you owe to the duration of what you earn. If your customer can leave in thirty days, do not sign anything that binds you for fifteen years without an escape. This applies at every scale. It applies to a factory lease. It applies to permanent staff hired against a single client's contract. It applies to a loan taken against an order that has not shipped. The numbers change. The shape never does. Most businesses that die of cash flow problems are actually dying of duration mismatch. The cash flow is the symptom."
+      },
+      {
+        "keywords": [
+          "multiplying growth chart",
+          "assembly line production",
+          "domino effect falling",
+          "scales balance"
+        ],
+        "text": "Second. Growth is not evidence of health. Growth is an amplifier. WeWork's growth was completely real, and it accelerated the failure. Every new floor added liability faster than it added durable revenue. If your unit economics are negative, scale is the worst thing that can happen to you. It converts a survivable problem into a fatal one, faster, while everyone around you applauds. Before you scale anything, you need to know whether the thing you are multiplying is positive. Most people never actually check. They assume that if the top line is rising, the rest will sort itself out. It does not sort itself out. It compounds in whichever direction it was already going."
+      },
+      {
+        "keywords": [
+          "reading document late night",
+          "magnifying glass paper",
+          "desk lamp study",
+          "signature on contract"
+        ],
+        "text": "Third. Read the governance documents when you do not need them. Nobody reads the articles of association when everyone is friends. That is precisely when they are written, and precisely when you still have the leverage to change them. By the time you need to know who controls a decision, the answer was fixed years earlier by a clause you skimmed in eleven minutes because reading it properly felt like an accusation. That is true at forty-seven billion dollars. It is equally true at four lakh rupees. The document does not care about the scale. It only cares what it says."
+      },
+      {
+        "keywords": [
+          "stack of paper documents",
+          "office lights switching off",
+          "empty lobby night",
+          "city skyline dusk"
+        ],
+        "text": "The lasting mistake with WeWork is treating it as a story about one unusual man. It is not. It is a story about a structure that would have failed under a careful, sober, boring chief executive too. Just more slowly, and with far less to write about. Forty-seven point two billion dollars of obligations. Thirty days of commitment on the other side. Twenty votes to one, so that nobody inside could force the question. Everything else, the jet, the tequila, the trademark, was the noise that made a very simple arithmetic problem entertaining enough to ignore. The filing said all of it. In public. Months ahead of time. Almost nobody read it. They rarely do."
+      }
+    ]
+  }
+]

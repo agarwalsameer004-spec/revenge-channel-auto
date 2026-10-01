@@ -3,7 +3,7 @@
     "id": 101,
     "title": "WeWork Didn't Fail Because Of Adam Neumann",
     "description": "In August 2019 WeWork filed to go public at a $47 billion valuation. Six weeks later the offering was dead. Most coverage blames one man. The filing tells a different story: $47.2 billion of long-dated lease obligations funded by customers who could leave in thirty days, and a share structure that made the problem unchallengeable from inside.\n\nAll figures are taken from WeWork's public S-1 filing and contemporaneous reporting. Sources:\n- WeWork S-1, SEC EDGAR, 14 Aug 2019\n- CNBC, 'The strangest and most alarming things in WeWork's IPO filing', 17 Aug 2019\n- CNBC, 'WeWork CEO returns $5.9 million', 4 Sept 2019\n- Harvard Law School Forum on Corporate Governance, 15 Jan 2020\n\nThis video is commentary and analysis of public filings.",
-    "used": false,
+    "used": true,
     "beats": [
       {
         "keywords": [

@@ -940,19 +940,31 @@ def loudness_gain(path, target=None):
     return gain
 
 
-def make_thumbnail(title, out_path):
-    img = Image.new("RGB", (1280, 720), (12, 12, 16))
-    draw = ImageDraw.Draw(img)
+def make_thumbnail(title, out_path, spec=None):
+    """Delegate to the thumbnail renderer; never fail the run over an image.
+
+    A script can supply a "thumb" object in scripts_queue.json (kicker, number,
+    up to three short lines, and an optional document object). Without one the
+    renderer falls back to laying out the title, which is a safety net rather
+    than a plan -- a title is a sentence and a thumbnail is not.
+    """
     try:
-        font = ImageFont.truetype(
-            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 86)
-    except Exception:
-        font = ImageFont.load_default()
-    draw.rectangle([0, 0, 24, 720], fill=(200, 30, 30))
-    wrapped = textwrap.fill(title.upper(), width=15)
-    draw.multiline_text((80, 160), wrapped, font=font,
-                        fill=(245, 245, 245), spacing=18)
-    img.save(out_path, quality=92)
+        import thumbnail
+        thumbnail.render(title, out_path, spec)
+    except Exception as exc:
+        print(f"  WARNING: thumbnail render failed ({exc}); "
+              "falling back to a plain title card")
+        img = Image.new("RGB", (1280, 720), (18, 26, 33))
+        draw = ImageDraw.Draw(img)
+        try:
+            font = ImageFont.truetype(
+                "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 86)
+        except Exception:
+            font = ImageFont.load_default()
+        draw.rectangle([0, 0, 24, 720], fill=(214, 58, 48))
+        draw.multiline_text((80, 160), textwrap.fill(title.upper(), width=15),
+                            font=font, fill=(245, 245, 245), spacing=18)
+        img.save(out_path, quality=92)
 
 
 # --------------------------------------------------------------------------- #
@@ -1063,7 +1075,7 @@ def main():
     assemble_video(plan, audio_path, subs_path, video_path, duration)
     print(f"  video assembled: {os.path.getsize(video_path)/1e6:.1f} MB")
 
-    make_thumbnail(item["title"], thumb_path)
+    make_thumbnail(item["title"], thumb_path, item.get("thumb"))
     video_id = upload_to_youtube(video_path, thumb_path,
                                  item["title"], item.get("description", ""))
     if YT_PRIVACY == "public":

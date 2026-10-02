@@ -24,6 +24,7 @@ import json
 import math
 import os
 import random
+import re
 import subprocess
 import textwrap
 import time
@@ -153,24 +154,21 @@ def synthesise_beats(beats, out_dir):
     yields the REAL duration of each beat, so footage syncs to the story
     exactly instead of being apportioned by word count.
     """
+    import narration
+
     parts = []
     for i, (text, keywords) in enumerate(beats):
-        chunks = split_long(text)
-        chunk_paths, aligns = [], []
-        for j, chunk in enumerate(chunks):
-            path = os.path.join(out_dir, f"beat_{i:03d}_{j}.mp3")
-            aligns.append(generate_voice(chunk, path))
-            chunk_paths.append(path)
-        if len(chunk_paths) == 1:
-            path, align = chunk_paths[0], aligns[0]
-        else:
-            path = os.path.join(out_dir, f"beat_{i:03d}.mp3")
-            concat_audio(chunk_paths, path)
-            align = None
+        path = os.path.join(out_dir, f"beat_{i:03d}.mp3")
+        align, clean, _ = narration.synthesise(
+            text, path, generate_voice, work_dir=out_dir)
+        # The real file length, not the splice arithmetic: the mp3 encoder pads
+        # the tail, and footage slots are cut against the file that actually
+        # plays. Word timings come from the splice; a beat's SLOT comes from
+        # the file. They differ by tens of milliseconds, never more.
         dur = media_duration(path)
-        parts.append({"path": path, "text": text, "keywords": keywords,
+        parts.append({"path": path, "text": clean, "keywords": keywords,
                       "align": align, "dur": dur})
-        print(f"  beat {i+1:2d}/{len(beats)}: {dur:5.1f}s  ({len(text)} chars)")
+        print(f"  beat {i+1:2d}/{len(beats)}: {dur:5.1f}s  ({len(clean)} chars)")
     return parts
 
 
@@ -276,13 +274,18 @@ def google_tts(text, out_path):
 # Preference order when EDGE_VOICE_NAME is unset. Multilingual voices first:
 # they handle the Indian names, company names and figures in these scripts with
 # noticeably fewer mispronunciations than the older en-US neural voices.
+# Chosen by ear against a blind five-voice comparison on a real passage.
+# Microsoft tags Eric "Rational", and it also measured the widest loudness range
+# of the voices tested (7.2 LU). Andrew, the previous default, is tagged
+# "Warm, Confident" -- a presenter. This format is a document read aloud, which
+# wants a reader. Christopher ("Reliable, Authority") is the fallback.
 EDGE_VOICE_PREFERENCE = [
+    "en-US-EricNeural",
+    "en-US-ChristopherNeural",
+    "en-US-SteffanNeural",
     "en-US-AndrewMultilingualNeural",
-    "en-US-BrianMultilingualNeural",
     "en-US-AndrewNeural",
-    "en-GB-RyanNeural",
     "en-US-BrianNeural",
-    "en-US-GuyNeural",
 ]
 
 
@@ -351,7 +354,7 @@ def boundaries_to_alignment(text, boundaries):
             "character_end_times_seconds": ends}
 
 
-def edge_tts_synth(text, out_path, attempts=3):
+def edge_tts_synth(text, out_path, attempts=3, rate=None, volume=None, pitch=None):
     """Synthesise via Microsoft Edge neural voices.
 
     No key, no account, no billing. The trade-off is that this is an unofficial
@@ -366,6 +369,14 @@ def edge_tts_synth(text, out_path, attempts=3):
     import edge_tts
 
     voice = resolve_edge_voice()
+    # Per-segment delivery. edge-tts only exposes rate/volume/pitch per REQUEST,
+    # which is exactly why narration is synthesised one segment at a time: it is
+    # the only place variation can be introduced.
+    kw = {"rate": rate or EDGE_RATE}
+    if volume:
+        kw["volume"] = volume
+    if pitch:
+        kw["pitch"] = pitch
 
     async def run():
         audio, boundaries = bytearray(), []
@@ -378,9 +389,9 @@ def edge_tts_synth(text, out_path, attempts=3):
         # the TypeError path keeps this working on edge-tts < 7.1.0.
         try:
             comm = edge_tts.Communicate(
-                text, voice, rate=EDGE_RATE, boundary="WordBoundary")
+                text, voice, boundary="WordBoundary", **kw)
         except TypeError:
-            comm = edge_tts.Communicate(text, voice, rate=EDGE_RATE)
+            comm = edge_tts.Communicate(text, voice, **kw)
         async for ev in comm.stream():
             if ev["type"] == "audio":
                 audio.extend(ev["data"])
@@ -424,7 +435,7 @@ TTS_CHAR_BUDGET = int(os.environ.get("TTS_CHAR_BUDGET", "60000"))
 _TTS_CHARS_USED = 0
 
 
-def generate_voice(text, out_path):
+def generate_voice(text, out_path, rate=None, volume=None, pitch=None):
     """Dispatch to the configured narration provider."""
     global _TTS_CHARS_USED
     _TTS_CHARS_USED += len(text)
@@ -434,7 +445,7 @@ def generate_voice(text, out_path):
             f"narration, over the {TTS_CHAR_BUDGET} budget. Something is looping."
         )
     if TTS_PROVIDER == "edge":
-        return edge_tts_synth(text, out_path)
+        return edge_tts_synth(text, out_path, rate=rate, volume=volume, pitch=pitch)
     if TTS_PROVIDER == "google":
         if not GOOGLE_TTS_API_KEY:
             raise SystemExit("GOOGLE_TTS_API_KEY is not set (TTS_PROVIDER=google).")
@@ -866,19 +877,28 @@ def assemble_video(plan, audio_path, subtitle_path, out_path, duration):
            "-f", "concat", "-safe", "0", "-i", list_file,
            "-i", audio_path]
 
+    gain = loudness_gain(audio_path)
+
     if MUSIC:
         # Procedurally generated bed: no third-party track, so no Content ID
         # claim and no licence to track. Deliberately sparse for this format.
         cmd += ["-f", "lavfi", "-i",
                 f"sine=frequency=55:duration={duration:.2f},"
                 f"aformat=channel_layouts=stereo"]
-        filter_a = (f"[1:a]volume=1.0[v];"
-                    f"[2:a]volume={MUSIC_GAIN_DB}dB,afade=t=in:d=3,"
+        # amix normalises by input count unless told not to, which costs exactly
+        # 6 dB on a two-input mix. Left on, the finished video played ~13 dB
+        # below everything else on YouTube, which does not raise quiet uploads.
+        filter_a = (f"[1:a]volume={gain:.2f}dB[v];"
+                    f"[2:a]volume={MUSIC_GAIN_DB + gain:.2f}dB,afade=t=in:d=3,"
                     f"afade=t=out:st={max(duration-4,0):.2f}:d=4[m];"
-                    f"[v][m]amix=inputs=2:duration=first:dropout_transition=0[a]")
+                    f"[v][m]amix=inputs=2:duration=first:normalize=0:"
+                    f"dropout_transition=0[mx];"
+                    f"[mx]alimiter=limit=0.891:level=false[a]")
         cmd += ["-filter_complex", filter_a, "-map", "0:v:0", "-map", "[a]"]
     else:
-        cmd += ["-map", "0:v:0", "-map", "1:a:0"]
+        filter_a = (f"[1:a]volume={gain:.2f}dB,"
+                    f"alimiter=limit=0.891:level=false[a]")
+        cmd += ["-filter_complex", filter_a, "-map", "0:v:0", "-map", "[a]"]
 
     cmd += ["-vf", vf_final,
             "-c:v", "libx264", "-preset", "veryfast", "-crf", "22",
@@ -888,6 +908,36 @@ def assemble_video(plan, audio_path, subtitle_path, out_path, duration):
             out_path]
 
     subprocess.run(cmd, check=True, timeout=3600)
+
+
+LOUDNESS_TARGET = float(os.environ.get("LOUDNESS_TARGET", "-14"))
+
+
+def loudness_gain(path, target=None):
+    """dB of flat gain needed to bring `path` to the target integrated loudness.
+
+    A flat gain, not loudnorm's dynamic mode and not a compressor. Both of those
+    REDUCE loudness range, and loudness range is the thing this format is short
+    of -- narration that never changes level is narration with no emphasis in
+    it. Peaks are caught by a limiter at the very end instead.
+    """
+    target = LOUDNESS_TARGET if target is None else target
+    try:
+        out = subprocess.run(
+            ["ffmpeg", "-v", "info", "-nostats", "-i", path,
+             "-af", f"loudnorm=I={target}:TP=-1.5:print_format=json",
+             "-f", "null", "-"],
+            capture_output=True, text=True, timeout=900).stderr
+        import json as _json
+        m = _json.loads(re.search(r"\{[^{}]*input_i.*?\}", out, re.S).group(0))
+        gain = target - float(m["input_i"])
+    except Exception as exc:
+        print(f"  (loudness measurement failed: {exc}; leaving level alone)")
+        return 0.0
+    gain = max(-12.0, min(18.0, gain))
+    print(f"  narration measured {float(m['input_i']):.1f} LUFS "
+          f"-> {gain:+.1f} dB to reach {target:.0f} LUFS")
+    return gain
 
 
 def make_thumbnail(title, out_path):

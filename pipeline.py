@@ -369,7 +369,18 @@ def edge_tts_synth(text, out_path, attempts=3):
 
     async def run():
         audio, boundaries = bytearray(), []
-        comm = edge_tts.Communicate(text, voice, rate=EDGE_RATE)
+        # edge-tts 7.1.0 added a `boundary` argument and defaulted it to
+        # "SentenceBoundary". Left implicit, the stream returns one event per
+        # SENTENCE, the WordBoundary branch below never fires, and captions
+        # silently fall back to timing words evenly across the beat -- which
+        # looks like captions that drift out of sync with the voice. Never rely
+        # on the default. Older releases do not accept the argument at all, so
+        # the TypeError path keeps this working on edge-tts < 7.1.0.
+        try:
+            comm = edge_tts.Communicate(
+                text, voice, rate=EDGE_RATE, boundary="WordBoundary")
+        except TypeError:
+            comm = edge_tts.Communicate(text, voice, rate=EDGE_RATE)
         async for ev in comm.stream():
             if ev["type"] == "audio":
                 audio.extend(ev["data"])
@@ -385,6 +396,13 @@ def edge_tts_synth(text, out_path, attempts=3):
                 raise RuntimeError("edge-tts returned no audio")
             with open(out_path, "wb") as f:
                 f.write(audio)
+            if not boundaries:
+                # Loud, not fatal. Without word timings the captions still get
+                # written, but evenly spaced instead of landing on the word.
+                # That degradation is invisible in a log unless it is shouted.
+                print("  !! CAPTION WARNING: edge-tts returned no WordBoundary "
+                      "events; captions for this beat will be evenly spaced, "
+                      "not word-synced. Check the edge-tts version.")
             return boundaries_to_alignment(text, boundaries)
         except Exception as exc:
             last = exc

@@ -3,4 +3,4 @@ Pillow
 google-auth
 google-auth-oauthlib
 google-api-python-client
-edge-tts
+edge-tts>=7.1.0,<8

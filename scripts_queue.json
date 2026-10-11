@@ -1,80 +1,116 @@
 [
   {
-    "id": 101,
-    "title": "WeWork Didn't Fail Because Of Adam Neumann",
-    "description": "In August 2019 WeWork filed to go public at a $47 billion valuation. Six weeks later the offering was dead. Most coverage blames one man. The filing tells a different story: $47.2 billion of long-dated lease obligations funded by customers who could leave in thirty days, and a share structure that made the problem unchallengeable from inside.\n\nAll figures are taken from WeWork's public S-1 filing and contemporaneous reporting. Sources:\n- WeWork S-1, SEC EDGAR, 14 Aug 2019\n- CNBC, 'The strangest and most alarming things in WeWork's IPO filing', 17 Aug 2019\n- CNBC, 'WeWork CEO returns $5.9 million', 4 Sept 2019\n- Harvard Law School Forum on Corporate Governance, 15 Jan 2020\n\nThis video is commentary and analysis of public filings.",
-    "used": true,
+    "id": "04_generic_bioequivalence",
+    "title": "What Your Generic Medicine Had To Prove — And What It Didn't",
+    "description": "Two strips. Same salt. Very different prices. Here is exactly what the cheaper one had to prove before it could be sold in India — and what it did not.\n\nThis video is about rules and published data. It is not medical advice, and nothing in it is a reason to stop taking medicine your doctor prescribed.\n\nSOURCES\n• ICH M13A, Bioequivalence for Immediate-Release Solid Oral Dosage Forms (adopted 23 July 2024)\n• ICH M9, BCS-Based Biowaivers (adopted 20 November 2019)\n• US FDA, Statistical Approaches to Establishing Bioequivalence\n• Gazette of India, G.S.R. 327(E), 3 April 2017 — Drugs and Cosmetics (Ninth Amendment) Rules, 2017\n• New Drugs and Clinical Trials Rules, 2019 (G.S.R. 227(E), 19 March 2019)\n• Drugs and Cosmetics Rules, 1945 — CDSCO compilation, September 2024\n• CDSCO, Guidelines for Bioavailability & Bioequivalence Studies, March 2005\n• Davit et al., Annals of Pharmacotherapy, 2009;43(10):1583–97",
+    "used": "False",
+    "thumb": {
+      "kicker": "India · generic medicines",
+      "number": "2 OF 4",
+      "lines": [
+        "CLASSES NEED",
+        "A HUMAN",
+        "STUDY"
+      ],
+      "document": {
+        "heading": [
+          "Gazette of India",
+          "G.S.R. 327(E)"
+        ],
+        "figure": "3 April 2017",
+        "sign_label": "category II and category IV",
+        "circle": true
+      }
+    },
     "beats": [
       {
         "keywords": [
-          "sec filing document",
-          "empty glass office",
-          "stock market crash screen",
-          "financial newspaper"
+          "blister pack tablets",
+          "pharmacy counter",
+          "medicine strips close up",
+          "indian pharmacy shelves"
         ],
-        "text": "In August 2019, a company filed a document with American regulators that it hoped would make its founders billionaires. Six weeks later the offering was withdrawn, the chief executive was gone, and the valuation had fallen from forty-seven billion dollars to under eight. Most people remember the theatrics. The tequila. The private jet. The man who trademarked the word we and sold it to his own company. Those stories are true, and they are almost entirely beside the point. Because buried in the balance sheet of that filing was a single pair of numbers that made the collapse arithmetic rather than opinion. Not a scandal. Not a personality. Arithmetic. WeWork owed forty-seven point two billion dollars in future lease payments. And almost none of its customers were obliged to stay past next month. That is the whole story. Everything else is decoration.",
+        "text": "Two strips of tablets. [[0.8]] Same salt. Same strength. Same number of tablets. One costs a fraction of what the other costs. And the person holding both of them asks the chemist the same question that gets asked in every medical shop in this country, every single day. [[1.0]] Is it the same? [[1.2]] The honest answer is not yes. [[0.6]] And it is not no.",
         "card": {
-          "type": "headlines",
+          "type": "compare",
+          "title": "Same salt. Same strength.",
           "items": [
             {
-              "headline": "WeWork owes $47.2 billion in future rent",
-              "source": "S-1 filing, August 2019",
-              "highlight": "$47.2 billion"
+              "label": "Brand",
+              "display": "Higher price",
+              "weight": 1.0,
+              "colour": "RED"
             },
             {
-              "headline": "Customers can leave in 30 days",
-              "source": "S-1 filing, August 2019",
-              "highlight": "30 days"
-            },
-            {
-              "headline": "Net loss of $1.9 billion in 2018",
-              "source": "S-1 filing, August 2019",
-              "highlight": "$1.9 billion"
-            },
-            {
-              "headline": "Valuation cut from $47bn to under $8bn",
-              "source": "Reuters, October 2019",
-              "highlight": "under $8bn"
-            },
-            {
-              "headline": "IPO withdrawn. CEO gone. Six weeks.",
-              "source": "Bloomberg, September 2019",
-              "highlight": "withdrawn"
+              "label": "Generic",
+              "display": "Lower price",
+              "weight": 0.28,
+              "colour": "GREEN"
             }
           ]
         }
       },
       {
         "keywords": [
-          "empty office floor",
-          "coworking space people",
-          "desks being installed",
-          "office building lobby"
+          "government document stamp",
+          "official gazette paper",
+          "legal document close up",
+          "archive files"
         ],
-        "text": "Let's start with what WeWork actually was, without the mockery, because the mockery makes people stupid about this. The model was simple. Sign a long lease on an empty floor of an office building. Fifteen years, typically. Spend money turning it into somewhere people want to sit. Then rent desks inside it to small companies and freelancers, month to month. You are buying wholesale and selling retail. That is a completely legitimate business. Regus had been doing a version of it since nineteen eighty-nine. And the demand was real. That is the part critics still get wrong. People genuinely wanted these spaces. Revenue in the first half of two thousand nineteen more than doubled against the year before. That is not a fake business with no customers. That is a product people were actively buying. So if the demand was real, why is the company bankrupt?"
+        "text": "The honest answer is that there is a specific thing the cheaper strip had to prove before it was allowed to be sold. [[0.9]] There is a number attached to it. And in India, that requirement applies to two of the four categories that medicines are sorted into. [[1.4]] Not all four. None of that is hidden. It is written in a gazette notification from April two thousand and seventeen that anyone can download. [[0.8]] Almost nobody has read it. Today we are going to read it."
       },
       {
         "keywords": [
-          "hourglass time",
-          "long corridor building",
-          "calendar pages",
-          "bank vault"
+          "pharmaceutical factory machine",
+          "tablet press manufacturing",
+          "pills production line",
+          "laboratory equipment"
         ],
-        "text": "Because of something that has killed more businesses than fraud ever has, and that almost nobody outside of banking has a name for. Duration mismatch. Here it is in one sentence. Your obligations last fifteen years and your income lasts thirty days. When times are good, this is invisible. Beautiful, even. You have locked in cheap long-term rent and you are charging premium short-term rates, and the gap between them is your profit. When times are bad, it is the only thing that matters. Your customers leave in thirty days. Your landlords do not leave for fifteen years. A bank that borrows short and lends long is regulated within an inch of its life precisely because this structure is dangerous. WeWork ran the same structure in commercial property, and nobody regulated anything, because on paper it was a technology company.",
+        "text": "Start with the thing most people get wrong. When a company makes a generic version of a medicine, it is not copying a recipe. [[0.7]] It does not get the original manufacturer's formula. It does not get their machines, their suppliers, or their tablet press. It gets one thing: the name of the active molecule."
+      },
+      {
+        "keywords": [
+          "tablet dissolving in water",
+          "powder chemistry laboratory",
+          "microscope close up",
+          "scientist mixing"
+        ],
+        "text": "Everything else, the generic manufacturer works out on its own. The binder that holds the tablet together. The coating. The filler that makes up most of the tablet's weight. The compression force. The particle size of the drug itself. [[1.0]] So the tablet is genuinely a different object. Same molecule inside. Different everything else. And that matters, because the molecule does not do anything while it is still a tablet. [[0.8]] It has to dissolve. It has to cross the wall of your intestine. It has to reach your blood."
+      },
+      {
+        "keywords": [
+          "blood sample vial",
+          "medical laboratory testing",
+          "scientist pipette",
+          "clinical research"
+        ],
+        "text": "A tablet that dissolves too slowly delivers less drug. [[0.5]] One that dissolves too fast can deliver a sharper peak than intended. So the question regulators actually ask is not, is it the same tablet. [[0.9]] It is: does the same amount of drug reach the blood, at the same speed? That question has a name. Bioequivalence."
+      },
+      {
+        "keywords": [
+          "data graph screen",
+          "scientific chart analysis",
+          "laboratory monitor",
+          "research data"
+        ],
+        "text": "To answer it, you need to measure two things in actual human beings. The first is how much drug gets into the blood in total. On a graph of drug concentration against time, that is the area underneath the curve. In the literature it is written as A U C. The second is how high the concentration peaks, and that is written as C max. [[0.6]] A U C tells you the total dose that arrived. Cmax tells you how hard it hit.",
         "card": {
-          "type": "compare",
-          "title": "Owed for fifteen years. Paid for by thirty days.",
-          "items": [
+          "type": "rows",
+          "title": "What a bioequivalence study measures",
+          "rows": [
             {
-              "label": "What WeWork owed\nits landlords",
-              "display": "15 YEARS",
-              "weight": 1.0,
-              "colour": "RED"
+              "label": "AUC  —  total drug that reached the blood",
+              "value": "how much",
+              "colour": "WHITE"
             },
             {
-              "label": "What its customers\nowed WeWork",
-              "display": "30 DAYS",
-              "weight": 0.055,
+              "label": "Cmax  —  the highest concentration",
+              "value": "how hard",
+              "colour": "WHITE"
+            },
+            {
+              "label": "Same volunteers take both products",
+              "value": "crossover",
               "colour": "AMBER"
             }
           ]
@@ -82,156 +118,258 @@
       },
       {
         "keywords": [
-          "financial statement closeup",
-          "red ink accounting",
-          "calculator numbers",
-          "annual report pages"
+          "blood draw clinical",
+          "hospital volunteer study",
+          "medical research clinic",
+          "nurse taking sample"
         ],
-        "text": "Now the filing itself. A public document. Anyone could have read it. Very few did. Net loss for two thousand eighteen: one point nine billion dollars. Net loss for the first half of two thousand nineteen alone: more than nine hundred million dollars. Losing money is not damning by itself. Amazon lost money for years. The question is always the same. What is the loss buying? For Amazon, the losses bought warehouses and customers who came back on their own. Assets and habits. Things that keep paying you after you stop spending. For WeWork, the losses bought lease obligations. The spending did not create an asset. It created a bill.",
+        "text": "Now, how do you compare two products on those numbers without the comparison being ruined by the fact that people are different from each other? [[0.8]] You use the same people for both. A bioequivalence study is usually a crossover. [[0.7]] A volunteer takes the generic. You draw blood at intervals and plot the curve. Then, after a gap long enough for the drug to clear completely, the same volunteer takes the original product, and you plot that curve too. Same body. Same liver. Same gut. [[0.9]] The only thing that changed is the tablet."
+      },
+      {
+        "keywords": [
+          "regulation document",
+          "official seal stamp",
+          "government building",
+          "law book pages"
+        ],
+        "text": "Here is the standard, and it is the same sentence in Washington, in Amsterdam, at the World Health Organization, and in C D S C O's own guidance in Delhi. [[0.9]] The ninety percent confidence interval for the ratio of the two products, on both A U C and Cmax, must fall between eighty point zero zero percent and one hundred twenty five point zero zero percent.",
+        "card": {
+          "type": "number",
+          "figure": "80.00 – 125.00%",
+          "caption": "The whole confidence interval must fit inside",
+          "source": "ICH M13A  ·  US FDA  ·  EMA  ·  WHO  ·  CDSCO 2005 guidance"
+        }
+      },
+      {
+        "keywords": [
+          "confused person thinking",
+          "question mark concept",
+          "pharmacy customer",
+          "reading label"
+        ],
+        "text": "Now. [[1.0]] Almost everybody who hears that number for the first time hears it as: so a generic can be twenty percent weaker, or twenty five percent stronger. [[1.2]] That reading is wrong, and it is worth understanding exactly why, because this single misunderstanding is the source of most of the distrust. Two reasons."
+      },
+      {
+        "keywords": [
+          "mathematics equations",
+          "calculator numbers",
+          "statistics chart",
+          "scientific calculation"
+        ],
+        "text": "The first is that eighty and one hundred twenty five are not two different sized allowances. [[0.7]] They are the same allowance. The calculation is done on logarithms, and on that scale the two limits sit at exactly the same distance from one hundred, in opposite directions. The lopsided look of twenty and twenty five is an artefact of converting back to ordinary percentages at the end. Nothing about the rule is lopsided."
+      },
+      {
+        "keywords": [
+          "statistical analysis screen",
+          "data scientist working",
+          "research chart",
+          "laboratory report"
+        ],
+        "text": "The second reason matters more. [[1.0]] The rule does not say the result must land between eighty and one hundred twenty five. It says the entire confidence interval must fit inside that range. A confidence interval is a measure of how unsure you are. [[0.6]] A sloppy study with few volunteers and noisy data produces a wide interval, and a wide interval will not fit. [[0.8]] To squeeze the whole interval inside those limits, your result has to sit close to one hundred, and your study has to be good enough to prove it. [[1.0]] A product that really delivered twenty percent less drug would produce an interval reaching well below eighty. [[0.7]] It would fail."
+      },
+      {
+        "keywords": [
+          "research papers stack",
+          "scientific journal",
+          "medical library",
+          "data archive"
+        ],
+        "text": "That is the theory. [[0.8]] Theory is not evidence. What actually happens? The United States Food and Drug Administration answered this about its own approvals. Researchers from the agency's generic drugs office reviewed two thousand and seventy bioequivalence studies for oral generic products approved over twelve years, from nineteen ninety six to two thousand and seven. [[1.0]] Here is what they found.",
         "card": {
           "type": "rows",
-          "title": "WeWork, six months to 30 June 2019",
+          "title": "FDA review of 2,070 bioequivalence studies, 1996–2007",
           "rows": [
             {
-              "label": "Revenue",
-              "value": "+$1,535,420,000",
+              "label": "Average difference — total absorption",
+              "value": "3.56%",
               "colour": "GREEN"
             },
             {
-              "label": "Total expenses",
-              "value": "-$2,904,870,000",
-              "colour": "RED"
+              "label": "Average difference — peak concentration",
+              "value": "4.35%",
+              "colour": "GREEN"
+            },
+            {
+              "label": "Studies under 10% difference (AUC)",
+              "value": "97.6%",
+              "colour": "GREEN"
+            },
+            {
+              "label": "Approved in the United States — not India",
+              "value": "note",
+              "colour": "AMBER"
             }
-          ],
-          "total": {
-            "label": "Loss from operations",
-            "value": "-$1,369,450,000",
-            "colour": "RED"
-          }
+          ]
         }
       },
       {
         "keywords": [
-          "skyscraper towers",
-          "bar chart growing",
-          "contract signing pen",
-          "city financial district"
+          "american flag government",
+          "fda building",
+          "regulatory office",
+          "international document"
         ],
-        "text": "Future lease payment obligations as of the thirtieth of June, two thousand nineteen: forty-seven point two billion dollars. At the end of two thousand eighteen, that same figure had been about thirty-four billion. Stop and hold that for a second. In six months, the company added roughly thirteen billion dollars of future obligations. That is not growth in the sense investors were being sold. Every new location made the number worse, not better, because each one added fifteen years of certain liability against thirty days of uncertain revenue. The faster it grew, the more certainly it died. Growth was the disease presenting itself as the cure.",
+        "text": "The average difference between the generic and the original, on total drug absorbed, was three point five six percent. On peak concentration, four point three five percent. [[0.9]] And the spread: for total absorption, ninety seven point six percent of those studies came in under a ten percent difference. [[0.7]] Just over two percent exceeded ten percent. So the rule permits a window. [[0.6]] In practice, products land nowhere near its edges. [[1.4]] Now the part that most people quoting this study leave out. That is American data. [[0.8]] It tells you what the science can do. [[0.9]] It does not tell you what happened to the strip in your hand."
+      },
+      {
+        "keywords": [
+          "india government building",
+          "official registry office",
+          "stamped paperwork",
+          "administrative files"
+        ],
+        "text": "To know what happened to the strip in your hand, you have to follow how a medicine gets licensed in this country. [[0.8]] And India has two gates, not one. The first gate is central. Under the New Drugs and Clinical Trials Rules of two thousand and nineteen, a drug is legally a new drug for four years from the date the central authority first permitted it. [[0.7]] Some categories are new forever. Modified release formulations. Novel delivery systems. Vaccines. Products made from living cells."
+      },
+      {
+        "keywords": [
+          "calendar time passing",
+          "clock office",
+          "document transfer",
+          "filing cabinet"
+        ],
+        "text": "While a drug is still a new drug, anyone who wants to make their own version applies centrally, to the Drugs Controller General of India. [[0.9]] And the schedule of data they must submit includes, in plain words, bioavailability or bioequivalence studies for oral dosage forms. So within those first four years, the answer is clean. [[0.6]] A generic of an oral medicine had to prove bioequivalence, and a central authority reviewed the proof. [[1.3]] Then the four years end. [[0.9]] And the file moves."
+      },
+      {
+        "keywords": [
+          "map of india",
+          "state government office",
+          "bureaucracy paperwork",
+          "office corridor"
+        ],
+        "text": "After four years, a company wanting to manufacture that same molecule does not go to Delhi. [[0.7]] It applies to the licensing authority of its own state. Around thirty six state and union territory authorities. [[0.6]] Different offices, different capacity, same rulebook. And here is the part worth sitting with. [[1.0]] Before April two thousand and seventeen, at that second gate, there was no bioequivalence requirement at all. Not a weak one. [[0.7]] Not a loophole. Simply no clause requiring it.",
+        "card": {
+          "type": "headlines",
+          "items": [
+            {
+              "headline": "Before April 2017: no bioequivalence clause at the state gate",
+              "source": "Drugs and Cosmetics Rules, 1945",
+              "highlight": "no bioequivalence clause"
+            },
+            {
+              "headline": "3 April 2017 — G.S.R. 327(E) adds the requirement",
+              "source": "Gazette of India",
+              "highlight": "3 April 2017"
+            },
+            {
+              "headline": "Applies to oral dosage forms in BCS category II and IV",
+              "source": "Rules 74(q), 74B(8), 76(10), 78(r), 78A(9)",
+              "highlight": "category II and IV"
+            }
+          ]
+        }
+      },
+      {
+        "keywords": [
+          "gazette notification document",
+          "legal text close up",
+          "official stamp paper",
+          "printed regulation"
+        ],
+        "text": "That changed on the third of April, two thousand and seventeen, with a gazette notification numbered G S R three two seven E. It did two things. [[0.8]] It wrote a definition into the rules, of something called the Biopharmaceutics Classification System. And it added one sentence, identically, into five different rules covering every kind of state manufacturing licence. The sentence says the applicant shall submit the result of a bioequivalence study along with the application, for oral dosage forms of drugs in category two and category four of that classification system. [[1.4]] Category two. And category four. There are four categories."
+      },
+      {
+        "keywords": [
+          "chemistry beaker dissolving",
+          "laboratory solubility test",
+          "scientist examining",
+          "molecular model"
+        ],
+        "text": "Before anyone decides this is a scandal, understand why those two categories were chosen. [[0.8]] Because the choice is not arbitrary, and it is not lazy. It is the single most defensible line they could have drawn. The classification sorts drug molecules on two properties. Solubility: will the full dose dissolve in a glass of water's worth of fluid, across the range of acidity your gut actually has? [[0.6]] And permeability: once dissolved, does it cross the intestinal wall easily?",
+        "card": {
+          "type": "rows",
+          "title": "Four categories, one dividing line",
+          "rows": [
+            {
+              "label": "Category I  —  dissolves well, absorbs well",
+              "value": "biowaiver",
+              "colour": "GREEN"
+            },
+            {
+              "label": "Category III  —  dissolves well, absorbs poorly",
+              "value": "biowaiver",
+              "colour": "GREEN"
+            },
+            {
+              "label": "Category II  —  dissolves poorly",
+              "value": "study required",
+              "colour": "AMBER"
+            },
+            {
+              "label": "Category IV  —  poor at both",
+              "value": "study required",
+              "colour": "AMBER"
+            }
+          ]
+        }
+      },
+      {
+        "keywords": [
+          "dissolution testing apparatus",
+          "quality control laboratory",
+          "pharmaceutical testing",
+          "lab technician"
+        ],
+        "text": "Two properties, high or low, gives four categories. [[0.9]] Category one is high and high. Category two is poorly soluble. Category three is poorly permeable. Category four is poor at both. Now, the logic. [[1.0]] If a drug dissolves completely and almost instantly, and crosses the gut wall easily, then the tablet around it stops mattering. [[0.7]] It has already released everything it had before absorption begins. You can show that with a dissolution test in a laboratory, and you do not need volunteers. Internationally that shortcut has a name, a biowaiver, and it is available to categories one and three."
+      },
+      {
+        "keywords": [
+          "tablet coating machine",
+          "powder particles microscope",
+          "pharmaceutical formulation",
+          "production quality"
+        ],
+        "text": "Categories two and four cannot have it. [[0.8]] When a drug dissolves poorly, how fast it dissolves is the thing that decides how much gets absorbed. And how fast it dissolves depends on the formulation. [[0.6]] Particle size. Coating. Excipients. For those drugs, a different tablet really can mean a different dose reaching the blood. [[1.2]] So the two thousand and seventeen rule targets exactly the drugs where formulation matters most, and exempts exactly the ones where it provably does not. [[0.8]] Whoever drafted it understood the pharmacology."
+      },
+      {
+        "keywords": [
+          "pharmacy shelf medicines",
+          "hand holding tablet strip",
+          "medicine stock room",
+          "chemist shop"
+        ],
+        "text": "So where does that leave the strip in your hand? [[1.0]] If the molecule is still inside its four year window, or is a modified release form, a bioequivalence study was required and centrally reviewed. If it is past four years and falls in category two or four, a study was required, submitted to a state licensing authority. [[1.2]] And if it is past four years and falls in category one or three, there is no statutory bioequivalence requirement. [[0.8]] Dissolution testing, yes. A study in human volunteers, no."
+      },
+      {
+        "keywords": [
+          "laboratory timer test",
+          "dissolution bath equipment",
+          "checklist clipboard",
+          "inspection documents"
+        ],
+        "text": "Now, that is defensible. [[0.7]] The science says those are the drugs where the tablet matters least. But notice what the international version of that shortcut requires. [[0.9]] Under the international guideline, a biowaiver is not automatic for being in category one. You must show the product dissolves at least eighty five percent within fifteen to thirty minutes, at three different acidity levels, and for category three the excipients must closely match the original. [[1.0]] It is a test you have to pass. Not a category you get to belong to. And the Indian rules do not say who decides which category a drug sits in. [[0.8]] There is no published national list attached to the clause."
+      },
+      {
+        "keywords": [
+          "empty archive shelf",
+          "search no results",
+          "library empty",
+          "blank page document"
+        ],
+        "text": "There is one more thing, and it is the honest end of this story. [[0.9]] Remember the American study. Two thousand and seventy products, average difference under four percent. That number exists because a regulator reviewed its own decisions and published the result. [[1.3]] There is no Indian equivalent. [[0.8]] Not a hidden one. Not a classified one. As far as a careful search of the published literature can establish, it has not been done, or it has not been released.",
         "card": {
           "type": "number",
-          "figure": "$47,200,000,000",
-          "caption": "WeWork owed",
-          "source": "Future undiscounted minimum lease payments, 30 June 2019 - S-1"
+          "figure": "2 of 4",
+          "caption": "Categories that need a bioequivalence study in India",
+          "source": "G.S.R. 327(E), 3 April 2017 · as in CDSCO's compilation of the Rules, Sept 2024"
         }
       },
       {
         "keywords": [
-          "burning money",
-          "fuel gauge empty",
-          "clock ticking",
-          "empty wallet"
+          "doctor consulting patient",
+          "pharmacist advising customer",
+          "medical consultation",
+          "healthcare professional"
         ],
-        "text": "And then the number that decides how long you have. Estimated monthly cash burn: one hundred fifty to two hundred million dollars. Roughly six months of runway. So here is the honest summary of that filing in plain language. A company burning two hundred million dollars a month, carrying forty-seven billion in fifteen-year commitments, funded by customers who could walk out with thirty days notice, asking the public to hand it more money at a forty-seven billion dollar valuation. Written down like that, nobody would fund it. Which is precisely why almost nobody wrote it down like that."
+        "text": "So the honest position is this. [[0.7]] The rule is scientifically well aimed. The gap in it is real, documented, and narrower than it first looks. [[0.9]] And the study that would tell us whether the gap matters in practice has not been published. [[1.4]] Which brings me to the only thing I want you to take from this. Nothing here is a reason to stop taking your medicine. [[0.9]] An untreated condition is a certain harm. A theoretical difference in absorption, in a category chosen because formulation barely affects it, is not. [[0.7]] If anything in this video worries you about something you take, the person to ask is your doctor or your pharmacist, not a comment section."
       },
       {
         "keywords": [
-          "boardroom empty chairs",
-          "legal documents stack",
-          "contract fine print",
-          "courthouse columns"
+          "closing document folder",
+          "pharmacy at dusk",
+          "paper archive",
+          "stamped certificate"
         ],
-        "text": "Here is the question that actually matters, and the one most coverage skips. This was not a small company. There were sophisticated investors. A board. Auditors. Bankers. Dozens of intelligent, well-paid people with access to every one of these numbers. Why did nobody stop it? Because of how the shares were built. WeWork had multiple classes of stock. Ordinary Class A shares carried one vote each. The founder's Class B and Class C shares carried twenty votes each. Twenty to one. Which means you could own a large economic share of that company and have essentially no ability to change any decision inside it."
-      },
-      {
-        "keywords": [
-          "signing contract closeup",
-          "handshake business deal",
-          "old documents archive",
-          "lawyer office desk"
-        ],
-        "text": "This is the pattern I want you to actually take away, because it is not unique to WeWork and it will happen to somebody watching this. Control is not taken during the crisis. Control is settled long before the crisis, in paperwork, while everyone is still optimistic and nobody wants to seem difficult. The moment you need governance is the moment it is far too late to negotiate it. Governance is bought in the good years and spent in the bad ones. Nobody argues about voting rights when the company is growing and everyone is friends. That is exactly when the argument is cheap, and exactly when nobody has it."
-      },
-      {
-        "keywords": [
-          "commercial property building",
-          "rental agreement paper",
-          "keys handover",
-          "real estate office"
-        ],
-        "text": "And the related-party arrangements in that filing show what unchecked control looks like in practice. All of it disclosed. All of it in the public document. The founder held stakes in four commercial properties that were leased to WeWork. Payments to those landlord entities between two thousand sixteen and June two thousand nineteen totalled twenty point nine million dollars. He was, in part, his own landlord. Sitting on both sides of a negotiation, with twenty votes to one on the side that was supposed to be checking him."
-      },
-      {
-        "keywords": [
-          "trademark registration document",
-          "brand logo design",
-          "newspaper headline scandal",
-          "person leaving office"
-        ],
-        "text": "And the company paid five point nine million dollars to an entity he controlled, for the rights to the trademark we, the word the company was renaming itself around. I want to be fair here, because fairness is the only reason this analysis is worth anything. After the filing drew public criticism, he returned that five point nine million in full, in September two thousand nineteen. But notice what had to happen for it to be returned. Not a board vote. Not an audit committee. Public embarrassment. The internal mechanisms that were supposed to catch it had already been switched off. Not illegally. Structurally. Twenty votes to one."
-      },
-      {
-        "keywords": [
-          "newspaper printing press",
-          "people reading news phone",
-          "trading floor screens",
-          "stock chart falling"
-        ],
-        "text": "The filing became public in August two thousand nineteen. And then something happened that the private markets had not experienced in years. People read it. Not analysts with an allocation to protect. Not investors who had already committed. Journalists. Ordinary people. Anyone with a copy of the document and a free afternoon. The valuation had been set in January two thousand nineteen by a single large investor at forty-seven billion dollars. The public market looked at the same company six months later and started marking it down. To twenty billion. Then fifteen. Then ten."
-      },
-      {
-        "keywords": [
-          "business man leaving building",
-          "empty executive office",
-          "corporate headquarters exterior",
-          "closed sign door"
-        ],
-        "text": "The offering was withdrawn in September. The founder stepped down as chief executive that same month. By October the company needed rescue financing to survive, and got it, on terms that valued it at roughly eight billion dollars. Down about eighty percent in six weeks. And here is what I need you to notice. Nothing changed operationally. Nothing. The company on the thirtieth of September was the same company, with the same buildings, the same members and the same contracts, as the company on the first of August. The only thing that changed was who was allowed to look."
-      },
-      {
-        "keywords": [
-          "auction gavel",
-          "crowd of people",
-          "private meeting room",
-          "public square people"
-        ],
-        "text": "That is the mechanism I want you to remember, because it generalises far beyond this company. A private valuation is a negotiation between a small number of interested parties. Every one of them benefits from the number being high. A public valuation is an argument with everyone, including people who profit if you are wrong. Those two processes do not produce the same number. And when a company crosses from one to the other, the entire difference gets paid at once. WeWork eventually reached the public markets by another route in two thousand twenty-one. It filed for bankruptcy protection in November two thousand twenty-three. The lease obligations were still there. They were always going to still be there. That was the entire point."
-      },
-      {
-        "keywords": [
-          "small business owner shop",
-          "warehouse workers",
-          "factory floor machinery",
-          "delivery truck loading"
-        ],
-        "text": "I have run a business. Not at this scale, nowhere near it. But the failure mode here is not a big-company failure mode. It is the ordinary one, wearing a very expensive suit. Three things I would want anyone building anything to take from this. First. Match the duration of what you owe to the duration of what you earn. If your customer can leave in thirty days, do not sign anything that binds you for fifteen years without an escape. This applies at every scale. It applies to a factory lease. It applies to permanent staff hired against a single client's contract. It applies to a loan taken against an order that has not shipped. The numbers change. The shape never does. Most businesses that die of cash flow problems are actually dying of duration mismatch. The cash flow is the symptom."
-      },
-      {
-        "keywords": [
-          "multiplying growth chart",
-          "assembly line production",
-          "domino effect falling",
-          "scales balance"
-        ],
-        "text": "Second. Growth is not evidence of health. Growth is an amplifier. WeWork's growth was completely real, and it accelerated the failure. Every new floor added liability faster than it added durable revenue. If your unit economics are negative, scale is the worst thing that can happen to you. It converts a survivable problem into a fatal one, faster, while everyone around you applauds. Before you scale anything, you need to know whether the thing you are multiplying is positive. Most people never actually check. They assume that if the top line is rising, the rest will sort itself out. It does not sort itself out. It compounds in whichever direction it was already going."
-      },
-      {
-        "keywords": [
-          "reading document late night",
-          "magnifying glass paper",
-          "desk lamp study",
-          "signature on contract"
-        ],
-        "text": "Third. Read the governance documents when you do not need them. Nobody reads the articles of association when everyone is friends. That is precisely when they are written, and precisely when you still have the leverage to change them. By the time you need to know who controls a decision, the answer was fixed years earlier by a clause you skimmed in eleven minutes because reading it properly felt like an accusation. That is true at forty-seven billion dollars. It is equally true at four lakh rupees. The document does not care about the scale. It only cares what it says."
-      },
-      {
-        "keywords": [
-          "stack of paper documents",
-          "office lights switching off",
-          "empty lobby night",
-          "city skyline dusk"
-        ],
-        "text": "The lasting mistake with WeWork is treating it as a story about one unusual man. It is not. It is a story about a structure that would have failed under a careful, sober, boring chief executive too. Just more slowly, and with far less to write about. Forty-seven point two billion dollars of obligations. Thirty days of commitment on the other side. Twenty votes to one, so that nobody inside could force the question. Everything else, the jet, the tequila, the trademark, was the noise that made a very simple arithmetic problem entertaining enough to ignore. The filing said all of it. In public. Months ahead of time. Almost nobody read it. They rarely do."
+        "text": "What this is, is an answer to the question at the counter. [[1.0]] Not, yes it is the same. Not, no it is not. [[0.8]] It is: here is exactly what it had to prove. [[0.6]] Here is what it did not. [[1.0]] And here is the document where both of those are written down. [[1.2]] The paperwork told you first. [[0.8]] It usually does."
       }
     ]
   }

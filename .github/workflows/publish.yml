@@ -41,6 +41,10 @@ jobs:
           # a INR 1,000 prepayment before the free tier unlocks. To switch:
           # add GOOGLE_TTS_API_KEY as a secret and set TTS_PROVIDER to google.
           TTS_PROVIDER: edge
+          # Upload visibility. Unset -> the pipeline defaults to public.
+          # Set the YT_PRIVACY secret to 'unlisted' or 'private' to hold a
+          # new format back until it has been watched once.
+          YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
           EDGE_VOICE_NAME: ${{ secrets.EDGE_VOICE_NAME }}
           GOOGLE_TTS_API_KEY: ${{ secrets.GOOGLE_TTS_API_KEY }}
           GOOGLE_VOICE_NAME: ${{ secrets.GOOGLE_VOICE_NAME }}
